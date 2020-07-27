@@ -1,4 +1,5 @@
-﻿using BookWorm.Models;
+﻿using BookWorm.Data;
+using BookWorm.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,7 @@ namespace BookWorm.Repositories
 
         public User GetByFirebaseUserId(string firebaseUserId)
         {
-            return _context.UserProfile
-                .Include(up => up.UserType)
+            return _context.User
                 .FirstOrDefault(up => up.FirebaseUserId == firebaseUserId);
         }
 

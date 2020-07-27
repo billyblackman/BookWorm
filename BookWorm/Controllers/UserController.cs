@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookWorm.Data;
+using BookWorm.Models;
+using BookWorm.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookWorm.Controllers
 {
-    public class UserController : ControllerBase
-    {
+    
         [Authorize]
         [Route("api/[controller]")]
         [ApiController]
         public class UserController : ControllerBase
         {
-            private readonly UserRepository _userProfileRepository;
+            private readonly UserRepository _userRepository;
             public UserController(ApplicationDbContext context)
             {
                 _userRepository = new UserRepository(context);
@@ -35,10 +36,9 @@ namespace BookWorm.Controllers
             [HttpPost]
             public IActionResult Register(User user)
             {
-                _userProfileRepository.Add(user);
+                _userRepository.Add(user);
                 return CreatedAtAction(
                     nameof(GetByFirebaseUserId), new { firebaseUserId = user.FirebaseUserId }, user);
             }
         }
-    }
 }
