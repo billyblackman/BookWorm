@@ -14,6 +14,7 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState();
 
   const registerClick = (e) => {
+    debugger
     e.preventDefault();
     if (password && password !== confirmPassword) {
       alert("Passwords do not match");
@@ -22,6 +23,7 @@ export default function Register() {
         firstName,
         lastName,
         email,
+        createDateTime: Date.now()
       };
       register(user, password).then(() => history.push("/"));
     }
@@ -71,7 +73,7 @@ export default function Register() {
           />
         </FormGroup>
         <FormGroup>
-          <Button>Register</Button>
+          <Button onClick={registerClick}>Register</Button>
         </FormGroup>
       </fieldset>
     </Form>

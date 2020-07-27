@@ -1,7 +1,3 @@
-/* 
-Author(s): Calvin Curry
-Component Responsibility: Houses functions that extract data from the API
-*/
 import React, { useState, useEffect, createContext } from "react";
 import { Spinner } from "reactstrap";
 import * as firebase from "firebase/app";
@@ -49,6 +45,7 @@ export function UserProvider(props) {
   };
 
   const register = (user, password) => {
+    debugger
     return firebase
       .auth()
       .createUserWithEmailAndPassword(user.email, password)
@@ -62,19 +59,6 @@ export function UserProvider(props) {
   };
 
   const getToken = () => firebase.auth().currentUser.getIdToken();
-
-  const getAllUsers = () => {
-    return getToken().then((token) =>
-      fetch(apiUrl, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((resp) => resp.json())
-        .then(setUsers)
-    );
-  };
 
   const getUserByUserId = (id) => {
     return getToken().then((token) =>
@@ -111,20 +95,9 @@ export function UserProvider(props) {
     );
   };
 
-  const getDeactivatedUsers = () => {
-    return getToken().then((token) =>
-      fetch(`${apiUrl}/deactivatedUsers`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((resp) => resp.json())
-        .then(setUsers)
-    );
-  };
 
   const saveUser = (user) => {
+    debugger
     return getToken().then((token) =>
       fetch(apiUrl, {
         method: "POST",
@@ -137,40 +110,7 @@ export function UserProvider(props) {
     );
   };
 
-  const deactivateUser = (user) => {
-    return getToken().then((token) =>
-      fetch(`${apiUrl}/${user.id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }).then((resp) => {
-        if (resp.ok) {
-          getActiveUsers();
-        } else {
-          throw new Error("Unauthorized");
-        }
-      })
-    )
-  };
-
-  const reactivateUser = (user) => {
-    return getToken().then((token) =>
-      fetch(`${apiUrl}/reactivateUser/${user.id}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }).then((resp) => {
-        if (resp.ok) {
-          getDeactivatedUsers();
-        } else {
-          throw new Error("Unauthorized");
-        }
-      })
-    )
-  };
-
+  
   const updateUser = (user) =>
     getToken().then((token) =>
       fetch(`${apiUrl}/${user.id}`, {
@@ -191,15 +131,11 @@ export function UserProvider(props) {
         logout,
         register,
         getToken,
-        getAllUsers,
         getUser,
         users,
         getUserByUserId,
-        deactivateUser,
-        reactivateUser,
         updateUser,
-        getActiveUsers,
-        getDeactivatedUsers
+        getActiveUsers
       }}
     >
       {isFirebaseReady ? (
