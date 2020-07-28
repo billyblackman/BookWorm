@@ -4,6 +4,7 @@ import { UserContext } from "../providers/UserProvider";
 import Home from "./Home";
 import Login from "../components/auth/Login";
 import Register from "../components/auth/Register";
+import Explore from "./explore/Explore";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserContext);
@@ -17,6 +18,10 @@ export default function ApplicationViews() {
 
         <Route path="/login">
           <Login />
+        </Route>
+
+        <Route path="/explore">
+          <Explore />
         </Route>
 
         <Route path="/register">

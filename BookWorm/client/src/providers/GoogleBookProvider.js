@@ -13,4 +13,15 @@ export const GoogleBookProvider = (props) => {
             .then(console.log(googleBooks));
 
     }
+
+    return (
+        <GoogleBookContext.Provider
+          value={{
+            searchByTitle,
+            googleBooks
+          }}
+        >
+          {props.children}
+        </GoogleBookContext.Provider>
+      );
 }
