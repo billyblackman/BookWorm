@@ -13,6 +13,8 @@ export default function Register() {
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
 
+  const createDateTime = new Date()
+
   const registerClick = (e) => {
     debugger
     e.preventDefault();
@@ -23,7 +25,7 @@ export default function Register() {
         firstName,
         lastName,
         email,
-        createDateTime: Date.now()
+        createDateTime
       };
       register(user, password).then(() => history.push("/"));
     }
