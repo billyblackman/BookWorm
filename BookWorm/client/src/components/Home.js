@@ -13,7 +13,7 @@ export default function Home() {
             textAlign: "center",
           }}
         >
-          Hello! Welcome To Tabloid!
+          Welcome To Bookworm!
         </h1>
       </div>
       <center>
@@ -23,7 +23,7 @@ export default function Home() {
             height: "auto",
             borderRadius: "40%",
           }}
-          src="https://www.towson.edu/cla/images/cla-bulletin-board2-m.jpg"
+          src="https://cdn.pixabay.com/photo/2019/08/13/10/31/read-4403055_960_720.png"
           alt="bulletin board"
         />
       </center>
