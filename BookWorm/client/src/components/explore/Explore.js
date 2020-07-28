@@ -1,24 +1,19 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
-import { Form, FormGroup, Label, Media, Button, Card, CardImg, CardTitle, CardSubtitle, CardBody } from "reactstrap";
+import { Form, FormGroup, Label, Button, Card, CardImg, CardTitle, CardSubtitle, CardBody } from "reactstrap";
 import "../../styles/book.css"
 
 export default function Explore() {
 
     const { googleBooks, searchByTitle } = useContext(GoogleBookContext);
 
-    const [searched, setSearched] = useState(false);
-    const setSearchedState =() => setSearched(true);
-
     const title = useRef();
 
     const search = () => {
         searchByTitle(title.current.value);
-        setSearchedState();
     }
 
     const bookItems = googleBooks.items;
-    // const bookItemsLength = bookItems.length;
 
     const conditionalBookRender = () => {
         return bookItems !== undefined ? (
@@ -32,6 +27,8 @@ export default function Explore() {
                                 <CardTitle>{book.volumeInfo.title}</CardTitle>
                                 <CardSubtitle>{book.volumeInfo.subtitle}</CardSubtitle>
                             </CardBody>
+                            <Button color="success">Save to Collection</Button>
+                            <Button color="primary">Save to Wishlist</Button>
                         </Card>
                 )
             })}
@@ -43,7 +40,6 @@ export default function Explore() {
             
     }
     
-
     return (
         <>
             <Form>

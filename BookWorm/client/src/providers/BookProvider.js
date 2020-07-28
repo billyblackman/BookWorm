@@ -1,8 +1,8 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, createContext } from "react";
 
 export const GoogleBookContext = createContext();
 
-export const GoogleBookProvider = (props) => {
+export const BookProvider = (props) => {
     const apiUrl = "https://www.googleapis.com/books/v1/volumes?q="
     const apiKey = "AIzaSyBNMegrLmhBQj2J5ASYQxUEKKGYRmtyMhg"
 

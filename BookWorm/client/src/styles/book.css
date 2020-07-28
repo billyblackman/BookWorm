@@ -1,6 +1,6 @@
 .googleBook {
-    width: 5em;
-    height: 10em;
+    width: 20em;
+    height: 40em;
     padding: 5px;
     margin: 10px;
 }
@@ -8,6 +8,11 @@
 .bookDiv {
     display: flex;
     flex-wrap: wrap;
+    flex-basis: content;
     flex-direction: row;
     padding: 10px;
+}
+
+.btn {
+    margin: 2px;
 }
