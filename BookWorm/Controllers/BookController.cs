@@ -20,6 +20,12 @@ namespace BookWorm.Controllers
         {
             _bookRepository = new BookRepository(context);
         }
+        [HttpGet("getByUser/{id}")]
+        public IActionResult GetByUserId(int id)
+        {
+            return Ok(_bookRepository.GetAllByUserId(id));
+        }
+
         [HttpPost]
         public IActionResult Post(Book book)
         {

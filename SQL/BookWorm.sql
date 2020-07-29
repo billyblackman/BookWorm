@@ -31,10 +31,10 @@ CREATE TABLE [Book] (
   [ImageLink] nvarchar(255) NOT NULL,
   [Purchased] bit NOT NULL,
   [CompletionPercentage] integer,
-  [Rating] integer,
-  [QueuePosition] integer,
-  [StartDate] datetime,
-  [EndDate] datetime
+  [Rating] integer null,
+  [QueuePosition] integer null,
+  [StartDate] datetime2 null,
+  [EndDate] datetime2 null
 
   CONSTRAINT FK_Book_User FOREIGN KEY (UserId) REFERENCES [User] ([Id])
 )
@@ -71,5 +71,5 @@ SET IDENTITY_INSERT [Book] ON
 INSERT INTO [Book]
   ([Id], [GoogleId], [UserId], [ImageLink], [Purchased], [CompletionPercentage], [Rating], [QueuePosition], [StartDate], [EndDate])
 VALUES 
-  (1, '5NomkK4EV68C', 1, 'http://books.google.com/books/content?id=5NomkK4EV68C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 1, 0, null, 1, null, null),
-  (2, 'v7eWDwAAQBAJ', 1, 'http://books.google.com/books/content?id=v7eWDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 1, 0, null, 2, null, null)
+  (1, '5NomkK4EV68C', 1, 'http://books.google.com/books/content?id=5NomkK4EV68C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 1, 0, null, null, null, null),
+  (2, 'v7eWDwAAQBAJ', 1, 'http://books.google.com/books/content?id=v7eWDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 1, 0, null, null, null, null)

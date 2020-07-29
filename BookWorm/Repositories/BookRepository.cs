@@ -1,4 +1,5 @@
-﻿using BookWorm.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using BookWorm.Data;
 using BookWorm.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,12 @@ namespace BookWorm.Repositories
         public BookRepository(ApplicationDbContext context)
         {
             _context = context;
+        }
+        public List<Book> GetAllByUserId(int id)
+        {
+            return _context.Book
+                            .Where(b => b.UserId == id)
+                            .ToList();
         }
         public void Add(Book book)
         {

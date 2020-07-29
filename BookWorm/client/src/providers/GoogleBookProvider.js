@@ -11,8 +11,7 @@ export const GoogleBookProvider = (props) => {
     const searchByTitle = (searchTerms) => {
         return fetch(`${apiUrl}${searchTerms}&maxResults=40`)
             .then((response) => response.json())
-            .then(setGoogleBooks)
-            .then(console.log(googleBooks));
+            .then(setGoogleBooks);
 
     }
 

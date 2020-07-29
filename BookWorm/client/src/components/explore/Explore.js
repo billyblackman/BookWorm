@@ -2,6 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
 import { Form, FormGroup, Label, Button, Card, CardImg, CardTitle, CardSubtitle, CardBody } from "reactstrap";
 import "../../styles/book.css"
+import { GoogleBook } from "./GoogleBook";
 
 export default function Explore() {
 
@@ -21,15 +22,7 @@ export default function Explore() {
             <div className="bookDiv">
                 {bookItems.map((book) => {
                     return (
-                        <Card className="googleBook">
-                            <CardImg src={book.volumeInfo.imageLinks.thumbnail} />
-                            <CardBody>
-                                <CardTitle>{book.volumeInfo.title}</CardTitle>
-                                <CardSubtitle>{book.volumeInfo.subtitle}</CardSubtitle>
-                            </CardBody>
-                            <Button color="success">Save to Collection</Button>
-                            <Button color="primary">Save to Wishlist</Button>
-                        </Card>
+                        <GoogleBook book={book}/>
                 )
             })}
             </div>

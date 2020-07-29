@@ -97,7 +97,6 @@ export function UserProvider(props) {
 
 
   const saveUser = (user) => {
-    debugger
     return getToken().then((token) =>
       fetch(apiUrl, {
         method: "POST",

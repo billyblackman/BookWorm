@@ -6,14 +6,17 @@ import { UserProvider } from './providers/UserProvider';
 import ApplicationViews from './components/ApplicationViews';
 import Header from './components/Header';
 import { GoogleBookProvider } from './providers/GoogleBookProvider';
+import { BookProvider } from './providers/BookProvider';
 
 function App() {
   return (
     <Router>
       <UserProvider>
         <GoogleBookProvider>
-          <Header />
-          <ApplicationViews/>
+          <BookProvider>
+            <Header />
+            <ApplicationViews/>
+          </BookProvider>
         </GoogleBookProvider>
       </UserProvider>
     </Router>
