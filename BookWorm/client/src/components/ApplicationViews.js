@@ -5,6 +5,7 @@ import Home from "./Home";
 import Login from "../components/auth/Login";
 import Register from "../components/auth/Register";
 import Explore from "./explore/Explore";
+import CollectionList from "./collection/CollectionList";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserContext);
@@ -20,12 +21,16 @@ export default function ApplicationViews() {
           <Login />
         </Route>
 
+        <Route path="/register">
+          <Register />
+        </Route>
+
         <Route path="/explore">
           <Explore />
         </Route>
 
-        <Route path="/register">
-          <Register />
+        <Route path="/collection">
+          <CollectionList />
         </Route>
 
       </Switch>

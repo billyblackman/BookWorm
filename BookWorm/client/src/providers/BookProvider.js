@@ -11,9 +11,9 @@ export const BookProvider = (props) => {
 
     const { getToken } = useContext(UserContext);    
 
-    const getAllBooks = (id) =>
+    const getAllBooks = () =>
         getToken().then((token) =>
-        fetch(`/api/book/getByUser/${id}`, {
+        fetch(`/api/book/getByUser/${user.id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -32,13 +32,14 @@ export const BookProvider = (props) => {
           "Content-Type": "application/json",
           },
           body: JSON.stringify(book),
-      }).then(getAllBooks(user.id))
+      }).then(getAllBooks())
   );
 
     return (
         <BookContext.Provider
           value={{
             books,
+            getAllBooks,
             addBook
           }}
         >
