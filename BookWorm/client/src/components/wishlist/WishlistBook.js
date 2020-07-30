@@ -5,6 +5,12 @@ import { GoogleBookContext } from "../../providers/GoogleBookProvider"
 
 export const WishlistBook = ({googleBook}) => {
 
+    const { deleteBookByGoogleId } = useContext(BookContext);
+
+    const deleteBookFromWishlist = () => {
+        deleteBookByGoogleId(googleBook.id)
+    }
+
     return googleBook.hasOwnProperty("volumeInfo") ? (
         <>
             <Card className="googleBook">
@@ -14,7 +20,7 @@ export const WishlistBook = ({googleBook}) => {
                     <CardSubtitle>{googleBook.volumeInfo.subtitle}</CardSubtitle>
                 </CardBody>
                 <Button>Add to Collection</Button>
-                <Button color="danger">Delete from Wishlist</Button>
+                <Button color="danger" onClick={deleteBookFromWishlist}>Delete from Wishlist</Button>
             </Card>
         </>
     ) : (
