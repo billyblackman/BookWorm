@@ -15,10 +15,17 @@ namespace BookWorm.Repositories
         {
             _context = context;
         }
-        public List<Book> GetAllByUserId(int id)
+        public List<Book> GetCollection(int id)
         {
             return _context.Book
-                            .Where(b => b.UserId == id)
+                            .Where(b => b.UserId == id && b.Purchased == true)
+                            .ToList();
+        }
+
+        public List<Book> GetWishlist(int id)
+        {
+            return _context.Book
+                            .Where(b => b.UserId == id && b.Purchased == false)
                             .ToList();
         }
         public void Add(Book book)

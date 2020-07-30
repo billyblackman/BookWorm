@@ -6,6 +6,7 @@ import Login from "../components/auth/Login";
 import Register from "../components/auth/Register";
 import Explore from "./explore/Explore";
 import CollectionList from "./collection/CollectionList";
+import Wishlist from "./wishlist/Wishlist";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserContext);
@@ -31,6 +32,10 @@ export default function ApplicationViews() {
 
         <Route path="/collection">
           <CollectionList />
+        </Route>
+
+        <Route path="/wishlist">
+          <Wishlist />
         </Route>
 
       </Switch>

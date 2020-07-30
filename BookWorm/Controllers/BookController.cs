@@ -24,10 +24,21 @@ namespace BookWorm.Controllers
             _bookRepository = new BookRepository(context);
             _userRepository = new UserRepository(context);
         }
-        [HttpGet("getByUser/{id}")]
-        public IActionResult GetByUserId(int id)
+
+        [HttpGet("collection")]
+        public IActionResult GetCollection()
         {
-            return Ok(_bookRepository.GetAllByUserId(id));
+            var currentUser = GetCurrentUser();
+
+            return Ok(_bookRepository.GetCollection(currentUser.Id));
+        }
+
+        [HttpGet("wishlist")]
+        public IActionResult GetWishlist()
+        {
+            var currentUser = GetCurrentUser();
+
+            return Ok(_bookRepository.GetWishlist(currentUser.Id));
         }
 
         [HttpGet("getByGoogleId/{googleId}")]

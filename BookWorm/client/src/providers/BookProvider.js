@@ -5,15 +5,25 @@ export const BookContext = createContext();
 
 export const BookProvider = (props) => {
 
-    const user = JSON.parse(sessionStorage.getItem("user"));
-
     const [books, setBooks] = useState([]);
 
     const { getToken } = useContext(UserContext);    
 
-    const getAllBooks = () =>
+    const getCollection = () =>
         getToken().then((token) =>
-        fetch(`/api/book/getByUser/${user.id}`, {
+        fetch(`/api/book/collection`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then(setBooks)
+      );
+
+      const getWishlist = () =>
+        getToken().then((token) =>
+        fetch(`/api/book/wishlist`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -32,7 +42,7 @@ export const BookProvider = (props) => {
           "Content-Type": "application/json",
           },
           body: JSON.stringify(book),
-      }).then(getAllBooks())
+      }).then(getCollection())
     );
 
     const deleteBookByGoogleId = (googleId) => 
@@ -44,7 +54,7 @@ export const BookProvider = (props) => {
         },
       }).then((resp) => {
         if (resp.ok) {
-          getAllBooks();
+          getCollection();
         } else {
           throw new Error("Unauthorized");
         }
@@ -57,7 +67,8 @@ export const BookProvider = (props) => {
         <BookContext.Provider
           value={{
             books,
-            getAllBooks,
+            getCollection,
+            getWishlist,
             addBook,
             deleteBookByGoogleId
           }}
