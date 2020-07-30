@@ -21,13 +21,27 @@ export const GoogleBookProvider = (props) => {
             .then(setGoogleBook);
     }
 
+//GoogleBookIdArray starts as array of promises, when promises resolve, becomes array of google books and is set into state
+
+    const getGoogleBooksByIds = (googleBookIdArray) => {
+
+      Promise.all(googleBookIdArray.map((id) => {
+        return fetch(`${apiUrl}/${id}`)
+        .then((response) => {
+          return response.json()
+        })
+      }))
+      .then((bookArray) => setGoogleBooks(bookArray));
+    }
+
     return (
         <GoogleBookContext.Provider
           value={{
             searchByTitle,
             googleBook,
             googleBooks,
-            getGoogleBookById
+            getGoogleBookById,
+            getGoogleBooksByIds
           }}
         >
           {props.children}

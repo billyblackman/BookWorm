@@ -8,17 +8,30 @@ import { CollectionBook } from "./CollectionBook";
 export default function CollectionList() {
 
     const { books, getAllBooks } = useContext(BookContext);
+    const { getGoogleBooksByIds, googleBooks } = useContext(GoogleBookContext);
 
-    useEffect(() => {
-        getAllBooks();
-    })
+
+
+    const idArrayFunction = () => {
+        return books.map((book) => book.googleId)
+    }
     
-    return books !== [] ? (
+    
+    useEffect(() => {
+        debugger
+        getAllBooks()
+        .then(idArrayFunction)
+        .then((bookIdArray) => getGoogleBooksByIds(bookIdArray));
+        debugger
+    }, [])
+    
+
+    return googleBooks !== [] ? (
         <>
         <div className="bookDiv">
-            {books.map((book) => {
+            {googleBooks.map((googleBook) => {
                 return (
-                    <CollectionBook book={book}/>
+                    <CollectionBook googleBook={googleBook}/>
             )
         })}
         </div>

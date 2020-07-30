@@ -3,17 +3,16 @@ import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Spinner } fro
 import { BookContext } from "../../providers/BookProvider";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider"
 
-export const CollectionBook = ({book}) => {
+export const CollectionBook = ({googleBook}) => {
 
-    const { getGoogleBookById, googleBook } = useContext(GoogleBookContext);
 
-    useEffect(() => {
-        getGoogleBookById(book.googleId)
-    }, [])
+    // useEffect(() => {
+    //     getGoogleBookById(book.googleId)
+    // }, [])
 
     debugger
 
-    return googleBook !== undefined ? (
+    return googleBook.hasOwnProperty("volumeInfo") ? (
         <>
             <Card className="googleBook">
                 <CardImg src={googleBook.volumeInfo.imageLinks.thumbnail} />
