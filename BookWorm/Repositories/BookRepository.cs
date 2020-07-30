@@ -26,5 +26,17 @@ namespace BookWorm.Repositories
             _context.Add(book);
             _context.SaveChanges();
         }
+
+        public Book GetByGoogleId(string googleId, int userId)
+        {
+            return _context.Book
+                            .FirstOrDefault(b => b.GoogleId == googleId && b.UserId == userId);
+        }
+        public void DeleteByGoogleId(string googleId, int userId)
+        {
+            var book = GetByGoogleId(googleId, userId);
+            _context.Book.Remove(book);
+            _context.SaveChanges();
+        }
     }
 }

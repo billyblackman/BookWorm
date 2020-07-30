@@ -33,14 +33,28 @@ export const BookProvider = (props) => {
           },
           body: JSON.stringify(book),
       }).then(getAllBooks())
-  );
+    );
+
+    const deleteBookByGoogleId = (googleId) => 
+      getToken().then((token) =>
+      fetch(`/api/book/deleteByGoogleId/${googleId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }).then(getAllBooks())
+    );
+
+
 
     return (
         <BookContext.Provider
           value={{
             books,
             getAllBooks,
-            addBook
+            addBook,
+            deleteBookByGoogleId
           }}
         >
           {props.children}

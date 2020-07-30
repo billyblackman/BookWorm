@@ -5,10 +5,13 @@ import { GoogleBookContext } from "../../providers/GoogleBookProvider"
 
 export const CollectionBook = ({googleBook}) => {
 
+    const { deleteBookByGoogleId } = useContext(BookContext);
 
-    // useEffect(() => {
-    //     getGoogleBookById(book.googleId)
-    // }, [])
+    const deleteBookFromCollection = () => {
+        deleteBookByGoogleId(googleBook.id)
+    }
+
+    console.log(googleBook.volumeInfo)
 
     debugger
 
@@ -21,7 +24,7 @@ export const CollectionBook = ({googleBook}) => {
                     <CardSubtitle>{googleBook.volumeInfo.subtitle}</CardSubtitle>
                 </CardBody>
                 <Button>Add to Queue</Button>
-                <Button color="danger">Delete from Collection</Button>
+                <Button color="danger" onClick={deleteBookFromCollection}>Delete from Collection</Button>
             </Card>
         </>
     ) : (
