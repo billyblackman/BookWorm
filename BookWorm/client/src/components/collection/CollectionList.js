@@ -9,21 +9,24 @@ export default function CollectionList() {
     const { books, getAllBooks } = useContext(BookContext);
     const { getGoogleBooksByIds, googleBooks } = useContext(GoogleBookContext);
 
-
-
     const idArrayFunction = () => {
         return books.map((book) => book.googleId)
     }
     
-    debugger
-    
+    // useEffect(() => {
+    //     getAllBooks()
+    //     .then(idArrayFunction)
+    //     .then((bookIdArray) => getGoogleBooksByIds(bookIdArray));
+    // }, [])
+
     useEffect(() => {
         getAllBooks()
         .then(idArrayFunction)
         .then((bookIdArray) => getGoogleBooksByIds(bookIdArray));
-    }, [])
-    
+    }, [books])
 
+    
+    
     return googleBooks !== [] ? (
         <>
         <div className="bookDiv">

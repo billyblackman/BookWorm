@@ -41,9 +41,14 @@ export const BookProvider = (props) => {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
-      }).then(getAllBooks())
+      }).then((resp) => {
+        if (resp.ok) {
+          getAllBooks();
+        } else {
+          throw new Error("Unauthorized");
+        }
+      })
     );
 
 

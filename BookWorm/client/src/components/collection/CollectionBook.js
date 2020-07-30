@@ -11,10 +11,6 @@ export const CollectionBook = ({googleBook}) => {
         deleteBookByGoogleId(googleBook.id)
     }
 
-    console.log(googleBook.volumeInfo)
-
-    debugger
-
     return googleBook.hasOwnProperty("volumeInfo") ? (
         <>
             <Card className="googleBook">
