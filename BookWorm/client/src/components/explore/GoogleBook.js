@@ -18,6 +18,16 @@ export const GoogleBook = ({book}) => {
         })
     }
 
+    const addBookToWishlist = () => {
+        addBook({
+            GoogleId: book.id,
+            UserId: user.id,
+            ImageLink: book.volumeInfo.imageLinks.thumbnail,
+            Purchased: false,
+            CompletionPercentage: 0
+        })
+    }
+
     return (
         <Card className="googleBook">
             <CardImg src={book.volumeInfo.imageLinks.thumbnail} />
@@ -26,7 +36,7 @@ export const GoogleBook = ({book}) => {
                 <CardSubtitle>{book.volumeInfo.subtitle}</CardSubtitle>
             </CardBody>
             <Button color="success" onClick={addBookToCollection}>Save to Collection</Button>
-            <Button color="primary">Add to Wishlist</Button>
+            <Button color="primary" onClick={addBookToWishlist}>Add to Wishlist</Button>
         </Card>
     )
 }
