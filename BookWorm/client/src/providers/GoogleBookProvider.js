@@ -5,8 +5,6 @@ export const GoogleBookContext = createContext();
 export const GoogleBookProvider = (props) => {
     const apiUrl = "https://www.googleapis.com/books/v1/volumes"
     const apiKey = process.env.REACT_APP_GOOGLE_API_KEY
-    
-    debugger
 
     const [googleBooks, setGoogleBooks] = useState([]);
     const [googleBook, setGoogleBook] = useState({volumeInfo: {imageLinks: {}}});

@@ -56,6 +56,14 @@ namespace BookWorm.Controllers
             return CreatedAtAction("Get", new { id = book.Id }, book);
         }
 
+        [HttpPatch("{googleId}")]
+        public IActionResult Update(string googleId)
+        {
+            var currentUser = GetCurrentUser();
+            _bookRepository.Update(googleId, currentUser.Id);
+            return NoContent();
+        }
+
         [HttpDelete("deleteByGoogleId/{googleId}")]
         public IActionResult Delete(string googleId)
         {

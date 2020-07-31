@@ -17,7 +17,7 @@ export default function CollectionList() {
         getCollection()
         .then(idArrayFunction)
         .then((bookIdArray) => getGoogleBooksByIds(bookIdArray));
-    }, [books])
+    }, [])
     
     return googleBooks !== [] ? (
         <>

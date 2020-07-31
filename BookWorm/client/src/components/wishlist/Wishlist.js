@@ -17,21 +17,23 @@ export default function Wishlist() {
         getWishlist()
         .then(idArrayFunction)
         .then((bookIdArray) => getGoogleBooksByIds(bookIdArray));
-    }, [books])
-    
-    debugger
+    }, [])
 
-    return googleBooks.length > 0 ? (
-        <>
-        <div className="bookDiv">
-            {googleBooks.map((googleBook) => {
-                return (
-                    <WishlistBook googleBook={googleBook}/>
+
+        return googleBooks.length > 0 ? (
+            <>
+            <div className="bookDiv">
+                {googleBooks.map((googleBook) => {
+                    return (
+                        <WishlistBook googleBook={googleBook}/>
+                )
+            })}
+            </div>
+            </>
+        ) : (
+            <>
+            Your Wishlist is Empty
+            </>
             )
-        })}
-        </div>
-        </>
-    ) : (
-        <>Your Wishlist is Empty</>
-        )
-}
+    }
+    

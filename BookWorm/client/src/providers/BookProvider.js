@@ -33,6 +33,17 @@ export const BookProvider = (props) => {
           .then(setBooks)
       );
 
+      const getBookByGoogleId = (googleId) =>
+        getToken().then((token) =>
+        fetch(`/api/book/getByGoogleId/${googleId}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => res.json())
+      );
+
       const addBook = (book) =>
       getToken().then((token) =>
       fetch("/api/book", {
@@ -60,7 +71,25 @@ export const BookProvider = (props) => {
         }
       })
     );
-
+    
+    const addBookFromWishlistToCollection = (book) => {
+      return getToken().then((token) =>
+        fetch(`/api/book/${book.id}`, {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(book),
+        }).then((resp) => {
+          if (resp.ok) {
+            getWishlist();
+          } else {
+            throw new Error("Unauthorized");
+          }
+        })
+      );
+    };
 
 
     return (
@@ -70,6 +99,8 @@ export const BookProvider = (props) => {
             getCollection,
             getWishlist,
             addBook,
+            addBookFromWishlistToCollection,
+            getBookByGoogleId,
             deleteBookByGoogleId
           }}
         >
