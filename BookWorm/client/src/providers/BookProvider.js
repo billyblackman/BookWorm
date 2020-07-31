@@ -33,6 +33,18 @@ export const BookProvider = (props) => {
           .then(setBooks)
       );
 
+      const getQueue = () =>
+        getToken().then((token) =>
+        fetch(`/api/book/queue`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then(setBooks)
+      );
+
       const getBookByGoogleId = (googleId) =>
         getToken().then((token) =>
         fetch(`/api/book/getByGoogleId/${googleId}`, {
