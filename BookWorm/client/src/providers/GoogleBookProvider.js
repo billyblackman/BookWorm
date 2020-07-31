@@ -21,8 +21,10 @@ export const GoogleBookProvider = (props) => {
           .then(setGoogleBooks);
     }
 
+    //Max results allowed in publisher search seems to be 35 rather than 40
+
     const searchByPublisher = (searchTerms) => {
-      return fetch(`${apiUrl}?q=inpublisher:${searchTerms}&maxResults=40`)
+      return fetch(`${apiUrl}?q=inpublisher:${searchTerms}&maxResults=35`)
           .then((response) => response.json())
           .then(setGoogleBooks);
     }

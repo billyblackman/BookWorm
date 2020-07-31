@@ -12,25 +12,31 @@ export default function Explore() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => setDropdownOpen(prevState => !prevState);
 
+    
     const searchTerms = useRef();
-
+    
     const search = () => {
+        
+        const currentSearchTerms = searchTerms.current.value;
+        const formattedSearchTerms = currentSearchTerms.replace(/\s+/g, '+')
+        debugger
+        
         switch (dropdownState) {
 
             case "Title":
-                searchByTitle(searchTerms.current.value)
+                searchByTitle(formattedSearchTerms)
                 break;
 
             case "Author":
-                searchByAuthor(searchTerms.current.value)
+                searchByAuthor(formattedSearchTerms)
                 break;
 
             case "Publisher":
-                searchByPublisher(searchTerms.current.value)
+                searchByPublisher(formattedSearchTerms)
                 break;
 
             case "Category":
-                searchByCategory(searchTerms.current.value)
+                searchByCategory(formattedSearchTerms)
                 break;
         }
     }
