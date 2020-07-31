@@ -54,6 +54,7 @@ namespace BookWorm.Controllers
         public IActionResult Post(Book book)
         {
             _bookRepository.Add(book);
+            Console.WriteLine(book);
             return CreatedAtAction("Get", new { id = book.Id }, book);
         }
 
@@ -72,6 +73,17 @@ namespace BookWorm.Controllers
             var currentUser = GetCurrentUser();
             var book = _bookRepository.GetByGoogleId(googleId, currentUser.Id);
             book.Purchased = true;
+            _bookRepository.Update(book);
+            return Ok(book);
+        }
+
+        [HttpPut("addBookToQueue/{googleId}")]
+        public IActionResult AddToQueue(string googleId)
+        {
+            User currentUser = GetCurrentUser();
+            Book book = _bookRepository.GetByGoogleId(googleId, currentUser.Id);
+            int highestPosition = _bookRepository.GetHighestQueuePosition(currentUser.Id);
+            book.QueuePosition = (highestPosition + 1);
             _bookRepository.Update(book);
             return Ok(book);
         }

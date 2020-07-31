@@ -28,6 +28,12 @@ namespace BookWorm.Repositories
                             .Where(b => b.UserId == id && b.Purchased == false)
                             .ToList();
         }
+
+        public int GetHighestQueuePosition(int userId)
+        {
+            List<Book> books = _context.Book.Where(b => b.UserId == userId).ToList();
+            return books.Max(b => b.QueuePosition);
+        }
         public void Add(Book book)
         {
             _context.Add(book);

@@ -5,10 +5,14 @@ import { GoogleBookContext } from "../../providers/GoogleBookProvider"
 
 export const CollectionBook = ({googleBook}) => {
 
-    const { deleteBookByGoogleId } = useContext(BookContext);
+    const { deleteBookByGoogleId, addBookToQueue } = useContext(BookContext);
 
     const deleteBookFromCollection = () => {
         deleteBookByGoogleId(googleBook.id)
+    }
+
+    const addToQueue = () => {
+        addBookToQueue(googleBook.id)
     }
 
     return googleBook.hasOwnProperty("volumeInfo") ? (
@@ -19,7 +23,7 @@ export const CollectionBook = ({googleBook}) => {
                     <CardTitle>{googleBook.volumeInfo.title}</CardTitle>
                     <CardSubtitle>{googleBook.volumeInfo.subtitle}</CardSubtitle>
                 </CardBody>
-                <Button>Add to Queue</Button>
+                <Button onClick={addToQueue}>Add to Queue</Button>
                 <Button color="danger" onClick={deleteBookFromCollection}>Delete from Collection</Button>
             </Card>
         </>
