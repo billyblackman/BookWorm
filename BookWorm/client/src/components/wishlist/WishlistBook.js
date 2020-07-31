@@ -11,11 +11,11 @@ export const WishlistBook = ({googleBook}) => {
         deleteBookByGoogleId(googleBook.id)
     }
 
-    const book = getBookByGoogleId(googleBook.id);
-
     const addToCollection = () => {
-        addBookFromWishlistToCollection(book)
+        addBookFromWishlistToCollection(googleBook.id)
     }
+
+    debugger
 
     return googleBook.hasOwnProperty("volumeInfo") ? (
         <>

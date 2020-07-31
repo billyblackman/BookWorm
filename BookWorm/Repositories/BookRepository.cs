@@ -46,9 +46,8 @@ namespace BookWorm.Repositories
             _context.SaveChanges();
         }
 
-        public void Update(string googleId, int userId)
+        public void Update(Book book)
         {
-            var book = GetByGoogleId(googleId, userId);
             _context.Entry(book).State = EntityState.Modified;
             _context.SaveChanges();
         }

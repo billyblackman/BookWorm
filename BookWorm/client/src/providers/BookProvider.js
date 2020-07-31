@@ -72,15 +72,14 @@ export const BookProvider = (props) => {
       })
     );
     
-    const addBookFromWishlistToCollection = (book) => {
+    const addBookFromWishlistToCollection = (googleId) => {
       return getToken().then((token) =>
-        fetch(`/api/book/${book.id}`, {
-          method: "PATCH",
+        fetch(`/api/book/wishlistToCollection/${googleId}`, {
+          method: "PUT",
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
-          },
-          body: JSON.stringify(book),
+          }
         }).then((resp) => {
           if (resp.ok) {
             getWishlist();

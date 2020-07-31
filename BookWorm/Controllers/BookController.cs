@@ -9,6 +9,7 @@ using BookWorm.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Operations;
 
 namespace BookWorm.Controllers
 {
@@ -56,12 +57,23 @@ namespace BookWorm.Controllers
             return CreatedAtAction("Get", new { id = book.Id }, book);
         }
 
-        [HttpPatch("{googleId}")]
+        [HttpPut("{googleId}")]
         public IActionResult Update(string googleId)
         {
             var currentUser = GetCurrentUser();
-            _bookRepository.Update(googleId, currentUser.Id);
+            var book = _bookRepository.GetByGoogleId(googleId, currentUser.Id);
+            _bookRepository.Update(book);
             return NoContent();
+        }
+
+        [HttpPut("wishlistToCollection/{googleId}")]
+        public IActionResult WishlistToCollection(string googleId)
+        {
+            var currentUser = GetCurrentUser();
+            var book = _bookRepository.GetByGoogleId(googleId, currentUser.Id);
+            book.Purchased = true;
+            _bookRepository.Update(book);
+            return Ok(book);
         }
 
         [HttpDelete("deleteByGoogleId/{googleId}")]
