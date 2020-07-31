@@ -82,7 +82,7 @@ export const BookProvider = (props) => {
           throw new Error("Unauthorized");
         }
       })
-      );
+    );
 
       const addBookToQueue = (googleId) =>
         getToken().then((token) =>
@@ -92,13 +92,18 @@ export const BookProvider = (props) => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
             },
-        }).then((resp) => {
-          if (resp.ok) {
-            getQueue();
-          } else {
-            throw new Error("Unauthorized");
-          }
-        })
+        }).then(getCollection)
+      );
+
+      const removeBookFromQueue = (googleId) =>
+        getToken().then((token) =>
+        fetch(`/api/book/removeBookFromQueue/${googleId}`, {
+            method: "PUT",
+            headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            },
+        }).then(getQueue)
       );
       
     const addBookFromWishlistToCollection = (googleId) => {
@@ -128,7 +133,9 @@ export const BookProvider = (props) => {
             getWishlist,
             addBook,
             addBookFromWishlistToCollection,
+            getQueue,
             addBookToQueue,
+            removeBookFromQueue,
             getBookByGoogleId,
             deleteBookByGoogleId
           }}

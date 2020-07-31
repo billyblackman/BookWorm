@@ -2,16 +2,12 @@ import React, { useContext } from "react";
 import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Spinner } from "reactstrap";
 import { BookContext } from "../../providers/BookProvider";
 
-export const CollectionBook = ({googleBook}) => {
+export const QueueBook = ({googleBook}) => {
 
-    const { deleteBookByGoogleId, addBookToQueue } = useContext(BookContext);
+    const { removeBookFromQueue } = useContext(BookContext);
 
-    const deleteBookFromCollection = () => {
-        deleteBookByGoogleId(googleBook.id)
-    }
-
-    const addToQueue = () => {
-        addBookToQueue(googleBook.id)
+    const deleteBookFromQueue = () => {
+        removeBookFromQueue(googleBook.id)
     }
 
     return googleBook.hasOwnProperty("volumeInfo") ? (
@@ -22,8 +18,7 @@ export const CollectionBook = ({googleBook}) => {
                     <CardTitle>{googleBook.volumeInfo.title}</CardTitle>
                     <CardSubtitle>{googleBook.volumeInfo.subtitle}</CardSubtitle>
                 </CardBody>
-                <Button onClick={addToQueue}>Add to Queue</Button>
-                <Button color="danger" onClick={deleteBookFromCollection}>Delete from Collection</Button>
+                <Button color="danger" onClick={deleteBookFromQueue}>Remove from Queue</Button>
             </Card>
         </>
     ) : (

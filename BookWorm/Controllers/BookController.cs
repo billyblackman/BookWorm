@@ -42,6 +42,14 @@ namespace BookWorm.Controllers
             return Ok(_bookRepository.GetWishlist(currentUser.Id));
         }
 
+        [HttpGet("queue")]
+        public IActionResult GetQueue()
+        {
+            var currentUser = GetCurrentUser();
+
+            return Ok(_bookRepository.GetQueue(currentUser.Id));
+        }
+
         [HttpGet("getByGoogleId/{googleId}")]
         public IActionResult GetByGoogleId(string googleId)
         {
@@ -84,6 +92,16 @@ namespace BookWorm.Controllers
             Book book = _bookRepository.GetByGoogleId(googleId, currentUser.Id);
             int highestPosition = _bookRepository.GetHighestQueuePosition(currentUser.Id);
             book.QueuePosition = (highestPosition + 1);
+            _bookRepository.Update(book);
+            return Ok(book);
+        }
+
+        [HttpPut("removeBookFromQueue/{googleId}")]
+        public IActionResult RemoveFromQueue(string googleId)
+        {
+            User currentUser = GetCurrentUser();
+            Book book = _bookRepository.GetByGoogleId(googleId, currentUser.Id);
+            book.QueuePosition = 0;
             _bookRepository.Update(book);
             return Ok(book);
         }
