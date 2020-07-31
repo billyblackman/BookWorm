@@ -53,7 +53,7 @@ export const BookProvider = (props) => {
           "Content-Type": "application/json",
           },
           body: JSON.stringify(book),
-      }).then(getCollection())
+      }).then(getCollection)
     );
 
     const deleteBookByGoogleId = (googleId) => 

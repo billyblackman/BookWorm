@@ -19,7 +19,7 @@ export default function CollectionList() {
         .then((bookIdArray) => getGoogleBooksByIds(bookIdArray));
     }, [])
     
-    return googleBooks !== [] ? (
+    return googleBooks.length > 0 ? (
         <>
         <div className="bookDiv">
             {googleBooks.map((googleBook) => {
