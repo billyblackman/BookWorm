@@ -15,6 +15,24 @@ export const GoogleBookProvider = (props) => {
             .then(setGoogleBooks);
     }
 
+    const searchByAuthor = (searchTerms) => {
+      return fetch(`${apiUrl}?q=inauthor:${searchTerms}&maxResults=40`)
+          .then((response) => response.json())
+          .then(setGoogleBooks);
+    }
+
+    const searchByPublisher = (searchTerms) => {
+      return fetch(`${apiUrl}?q=inpublisher:${searchTerms}&maxResults=40`)
+          .then((response) => response.json())
+          .then(setGoogleBooks);
+    }
+
+    const searchByCategory = (searchTerms) => {
+      return fetch(`${apiUrl}?q=insubject:${searchTerms}&maxResults=40`)
+          .then((response) => response.json())
+          .then(setGoogleBooks);
+    }
+
     const getGoogleBookById = (googleBookId) => {
       return fetch(`${apiUrl}/${googleBookId}`)
             .then((response) => response.json())
@@ -38,6 +56,9 @@ export const GoogleBookProvider = (props) => {
         <GoogleBookContext.Provider
           value={{
             searchByTitle,
+            searchByAuthor,
+            searchByPublisher,
+            searchByCategory,
             googleBook,
             googleBooks,
             getGoogleBookById,
