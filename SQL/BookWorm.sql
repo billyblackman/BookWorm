@@ -32,7 +32,7 @@ CREATE TABLE [Book] (
   [Purchased] bit NOT NULL,
   [CompletionPercentage] integer,
   [Rating] integer null,
-  [QueuePosition] integer,
+  [QueuePosition] integer null,
   [StartDate] datetime2 null,
   [EndDate] datetime2 null
 

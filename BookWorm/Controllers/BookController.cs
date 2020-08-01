@@ -106,6 +106,17 @@ namespace BookWorm.Controllers
             return Ok(book);
         }
 
+        [HttpPut("{id}")]
+        public IActionResult Edit(int id, Book book)
+        {
+            if (id != book.Id)
+            {
+                return BadRequest();
+            }
+            _bookRepository.Update(book);
+            return NoContent();
+        }
+
         [HttpDelete("deleteByGoogleId/{googleId}")]
         public IActionResult Delete(string googleId)
         {

@@ -1,10 +1,14 @@
-import React, { useContext, useEffect } from "react";
-import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Spinner, Progress } from "reactstrap";
+import React, { useContext, useState } from "react";
+import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Spinner, Progress, Collapse } from "reactstrap";
 import { BookContext } from "../../providers/BookProvider";
+import { CompletionCollapse } from "./CompletionCollapse";
 
 export const QueueBook = ({ googleBook, book }) => {
 
     const { removeBookFromQueue } = useContext(BookContext);
+
+    const [collapseState, setCollapseState] = useState(false);
+    const toggleCollapse = () => setCollapseState(!collapseState);
 
     const deleteBookFromQueue = () => {
         removeBookFromQueue(googleBook.id)
@@ -16,12 +20,12 @@ export const QueueBook = ({ googleBook, book }) => {
                 return (
                     <>
                         <Progress value={book.completionPercentage}>{book.completionPercentage}% Complete</Progress>
-                        <Button>Log progress</Button>
+                        <Button onClick={toggleCollapse}>Log progress</Button>
                     </>
                 )
             } else {
                 return (
-                    <Button>Start Book</Button>
+                    <Button onClick={toggleCollapse}>Start Book</Button>
                 )
             }
         } else {
@@ -29,7 +33,7 @@ export const QueueBook = ({ googleBook, book }) => {
         }
     }
 
-    return googleBook.hasOwnProperty("volumeInfo") ? (
+    return googleBook.hasOwnProperty("volumeInfo") && book !== undefined ? (
         <>
             <Card className="googleBook">
                 <CardImg src={googleBook.volumeInfo.imageLinks.thumbnail} />
@@ -37,13 +41,15 @@ export const QueueBook = ({ googleBook, book }) => {
                     <CardTitle>{googleBook.volumeInfo.title}</CardTitle>
                     <CardSubtitle>{googleBook.volumeInfo.subtitle}</CardSubtitle>
                 </CardBody>
-                {conditionalProgress}
+                {conditionalProgress()}
+                <Collapse isOpen={collapseState}>
+                    <CompletionCollapse toggle={toggleCollapse} book={book} googleBook={googleBook}/>
+                </Collapse>
                 <Button color="danger" onClick={deleteBookFromQueue}>Remove from Queue</Button>
             </Card>
         </>
     ) : (
             <>
-                <Spinner />
             </>
         )
 }
