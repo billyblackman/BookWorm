@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
 import "../../styles/book.css"
 import { BookContext } from "../../providers/BookProvider";
