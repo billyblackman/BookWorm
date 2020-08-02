@@ -7,7 +7,19 @@ export const BookProvider = (props) => {
 
     const [books, setBooks] = useState([]);
 
-    const { getToken } = useContext(UserContext);    
+    const { getToken } = useContext(UserContext);
+    
+    const getBooks = () =>
+        getToken().then((token) =>
+        fetch(`/api/book`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then(setBooks)
+      );
 
     const getCollection = () =>
         getToken().then((token) =>
@@ -68,17 +80,18 @@ export const BookProvider = (props) => {
         }).then(getCollection)
       );
 
-      const editBook = (book) =>
-      getToken().then((token) =>
-      fetch(`/api/book/${book.id}`, {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(book),
-        })
-      );
+      const editBook = (book) => {
+        return getToken().then((token) =>
+        fetch(`/api/book/${book.id}`, {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+              },
+              body: JSON.stringify(book),
+          })
+        );
+      }
     
     const deleteBookByGoogleId = (googleId) => 
       getToken().then((token) =>
@@ -141,6 +154,7 @@ export const BookProvider = (props) => {
         <BookContext.Provider
           value={{
             books,
+            getBooks,
             getCollection,
             getWishlist,
             addBook,

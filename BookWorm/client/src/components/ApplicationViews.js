@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { UserContext } from "../providers/UserProvider";
 import Home from "./Home";
@@ -8,9 +8,15 @@ import Explore from "./explore/Explore";
 import CollectionList from "./collection/CollectionList";
 import Wishlist from "./wishlist/Wishlist";
 import Queue from "./queue/Queue";
+import { BookContext } from "../providers/BookProvider";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserContext);
+  const { books, getBooks } = useContext(BookContext);
+
+  useEffect(() => {
+    getBooks();
+  })
 
   return (
     <main>

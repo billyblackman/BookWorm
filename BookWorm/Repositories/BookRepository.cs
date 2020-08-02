@@ -28,6 +28,13 @@ namespace BookWorm.Repositories
                             .Where(b => b.UserId == id && b.Purchased == false)
                             .ToList();
         }
+
+        public List<Book> GetBooks(int id)
+        {
+            return _context.Book
+                            .Where(b => b.UserId == id)
+                            .ToList();
+        }
         public List<Book> GetQueue(int id)
         {
             return _context.Book

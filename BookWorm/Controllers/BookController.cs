@@ -26,6 +26,14 @@ namespace BookWorm.Controllers
             _userRepository = new UserRepository(context);
         }
 
+        [HttpGet]
+        public IActionResult GetBooks()
+        {
+            var currentUser = GetCurrentUser();
+
+            return Ok(_bookRepository.GetBooks(currentUser.Id));
+        }
+
         [HttpGet("collection")]
         public IActionResult GetCollection()
         {

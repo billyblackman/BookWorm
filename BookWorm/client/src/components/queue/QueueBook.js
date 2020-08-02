@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Spinner, Progress, Collapse } from "reactstrap";
+import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Spinner, Progress, Collapse, Badge } from "reactstrap";
 import { BookContext } from "../../providers/BookProvider";
 import { CompletionCollapse } from "./CompletionCollapse";
 
@@ -40,6 +40,7 @@ export const QueueBook = ({ googleBook, book }) => {
                 <CardBody>
                     <CardTitle>{googleBook.volumeInfo.title}</CardTitle>
                     <CardSubtitle>{googleBook.volumeInfo.subtitle}</CardSubtitle>
+                <Badge>{book.queuePosition}</Badge>
                 </CardBody>
                 {conditionalProgress()}
                 <Collapse isOpen={collapseState}>
