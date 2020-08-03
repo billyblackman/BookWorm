@@ -74,14 +74,7 @@ namespace BookWorm.Controllers
             return CreatedAtAction("Get", new { id = book.Id }, book);
         }
 
-        [HttpPut("{googleId}")]
-        public IActionResult Update(string googleId)
-        {
-            var currentUser = GetCurrentUser();
-            var book = _bookRepository.GetByGoogleId(googleId, currentUser.Id);
-            _bookRepository.Update(book);
-            return NoContent();
-        }
+        
 
         [HttpPut("wishlistToCollection/{googleId}")]
         public IActionResult WishlistToCollection(string googleId)
@@ -115,7 +108,7 @@ namespace BookWorm.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Edit(int id, Book book)
+        public IActionResult Put(int id, Book book)
         {
             if (id != book.Id)
             {

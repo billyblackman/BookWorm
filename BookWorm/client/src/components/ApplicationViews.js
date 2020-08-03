@@ -12,11 +12,11 @@ import { BookContext } from "../providers/BookProvider";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserContext);
-  const { books, getBooks } = useContext(BookContext);
+  const { getBooks } = useContext(BookContext);
 
-  useEffect(() => {
-    getBooks();
-  })
+  // useEffect(() => {
+  //   getBooks();
+  // })
 
   return (
     <main>

@@ -7,7 +7,7 @@ import { Spinner } from "reactstrap";
 
 export default function Queue() {
 
-    const { books, getBooks, getQueue, getBookByGoogleId } = useContext(BookContext);
+    const { books, getBooks } = useContext(BookContext);
     const { getGoogleBooksByIds, googleBooks } = useContext(GoogleBookContext);
     const [booksLoaded, setBooksLoaded] = useState(false);
     
@@ -22,12 +22,10 @@ export default function Queue() {
         getBooks()
         .then(idArrayFunction)
         .then((bookIdArray) => getGoogleBooksByIds(bookIdArray))
-        .then(setBooksLoaded);
+        .then(setBooksLoaded(true));
     }, [])
-    debugger
-    
 
-    return googleBooks.length > 0 ? (
+    return googleBooks.length > 0  && booksLoaded ? (
         <>
         <div className="bookDiv">
             {googleBooks.map((googleBook) => {

@@ -14,7 +14,7 @@ export default function Wishlist() {
     const matchingBooks = books.filter(book => book.purchased === false);
 
     const idArrayFunction = () => {
-        return books.map((book) => book.googleId)
+        return matchingBooks.map((book) => book.googleId)
     }
 
     useEffect(() => {
@@ -23,7 +23,6 @@ export default function Wishlist() {
         .then((bookIdArray) => getGoogleBooksByIds(bookIdArray))
         .then(setBooksLoaded(true));
     }, [])
-
 
         return googleBooks.length > 0 && booksLoaded ? (
             <>

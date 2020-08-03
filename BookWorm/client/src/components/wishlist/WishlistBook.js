@@ -5,7 +5,7 @@ import { GoogleBookContext } from "../../providers/GoogleBookProvider"
 
 export const WishlistBook = ({googleBook}) => {
 
-    const { deleteBookByGoogleId, addBookFromWishlistToCollection, getBookByGoogleId } = useContext(BookContext);
+    const { deleteBookByGoogleId, addBookFromWishlistToCollection } = useContext(BookContext);
 
     const deleteBookFromWishlist = () => {
         deleteBookByGoogleId(googleBook.id)
