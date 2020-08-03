@@ -14,10 +14,6 @@ export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserContext);
   const { getBooks } = useContext(BookContext);
 
-  // useEffect(() => {
-  //   getBooks();
-  // })
-
   return (
     <main>
       <Switch>

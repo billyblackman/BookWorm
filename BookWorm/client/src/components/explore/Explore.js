@@ -1,17 +1,20 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
-import { Form, FormGroup, Label, Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+import { Form, FormGroup, Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Collapse } from "reactstrap";
 import "../../styles/book.css"
 import { GoogleBook } from "./GoogleBook";
+import { SeriesForm } from "./SeriesForm";
 
 export default function Explore() {
 
     const { googleBooks, searchByTitle, searchByAuthor, searchByPublisher, searchByCategory } = useContext(GoogleBookContext);
     const [dropdownState, setDropdownState] = useState("Title");
-    const [searchActive, setSearchActive] = useState(false);
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => setDropdownOpen(prevState => !prevState);
+
+    const [collapseState, setCollapseState] = useState(false);
+    const toggleCollapse = () => setCollapseState(!collapseState);
 
     
     const searchTerms = useRef();
@@ -39,7 +42,6 @@ export default function Explore() {
                 searchByCategory(formattedSearchTerms)
                 break;
         }
-        setSearchActive(true);
     }
 
     const bookItems = googleBooks.items;
@@ -47,7 +49,11 @@ export default function Explore() {
     const conditionalBookRender = () => {
         return bookItems !== undefined ? (
             <>
-            <Button>Create Series</Button>
+            <Button onClick={toggleCollapse}>Create Series</Button>
+            <Collapse isOpen={collapseState}>
+                <SeriesForm />
+            </Collapse>
+
             <div className="bookDiv">
                 {bookItems.map((book) => {
                     return (

@@ -1,17 +1,18 @@
-import React, { useContext } from "react";
-import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody } from "reactstrap";
+import React, { useContext, useState } from "react";
+import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Modal } from "reactstrap";
 import { BookContext } from "../../providers/BookProvider";
+import { SeriesModal } from "./SeriesModal";
 
 export const GoogleBook = ({book}) => {
 
-    const { addBook } = useContext(BookContext);
+    const [modal, setModal] = useState(false);
+    const toggleModal = () => setModal(!modal);
 
-    const user = JSON.parse(sessionStorage.getItem("user"));
+    const { addBook } = useContext(BookContext);
 
     const addBookToCollection = () => {
         addBook({
             GoogleId: book.id,
-            UserId: user.id,
             ImageLink: book.volumeInfo.imageLinks.thumbnail,
             Purchased: true,
             CompletionPercentage: 0
@@ -21,7 +22,6 @@ export const GoogleBook = ({book}) => {
     const addBookToWishlist = () => {
         addBook({
             GoogleId: book.id,
-            UserId: user.id,
             ImageLink: book.volumeInfo.imageLinks.thumbnail,
             Purchased: false,
             CompletionPercentage: 0
@@ -37,6 +37,10 @@ export const GoogleBook = ({book}) => {
             </CardBody>
             <Button color="success" onClick={addBookToCollection}>Save to Collection</Button>
             <Button color="primary" onClick={addBookToWishlist}>Add to Wishlist</Button>
+            <Button color="primary" onClick={toggleModal}>Series</Button>
+            <Modal isOpen={modal}>
+                <SeriesModal toggle={toggleModal}/>
+            </Modal>
         </Card>
     )
 }

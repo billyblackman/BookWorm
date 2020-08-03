@@ -7,6 +7,7 @@ import ApplicationViews from './components/ApplicationViews';
 import Header from './components/Header';
 import { GoogleBookProvider } from './providers/GoogleBookProvider';
 import { BookProvider } from './providers/BookProvider';
+import { SeriesProvider } from './providers/SeriesProvider';
 
 function App() {
   return (
@@ -14,8 +15,10 @@ function App() {
       <UserProvider>
         <GoogleBookProvider>
           <BookProvider>
-            <Header />
-            <ApplicationViews/>
+            <SeriesProvider>
+              <Header />
+              <ApplicationViews />
+            </SeriesProvider>
           </BookProvider>
         </GoogleBookProvider>
       </UserProvider>

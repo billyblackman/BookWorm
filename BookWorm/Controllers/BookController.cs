@@ -69,12 +69,11 @@ namespace BookWorm.Controllers
         [HttpPost]
         public IActionResult Post(Book book)
         {
+            var currentUser = GetCurrentUser();
+            book.UserId = currentUser.Id;
             _bookRepository.Add(book);
-            Console.WriteLine(book);
             return CreatedAtAction("Get", new { id = book.Id }, book);
         }
-
-        
 
         [HttpPut("wishlistToCollection/{googleId}")]
         public IActionResult WishlistToCollection(string googleId)
