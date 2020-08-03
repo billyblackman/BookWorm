@@ -13,6 +13,7 @@ namespace BookWorm.Data
         public DbSet<User> User { get; set; }
         public DbSet<Book> Book { get; set; }
         public DbSet<Series> Series { get; set; }
-        
+        public DbSet<SeriesBook> SeriesBook { get; set; }
+
     }
 }

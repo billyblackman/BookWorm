@@ -6,6 +6,7 @@ export const SeriesContext = createContext();
 export const SeriesProvider = (props) => {
 
     const [series, setSeries] = useState([]);
+    const [seriesBooks, setSeriesBooks] = useState([]);
 
     const { getToken } = useContext(UserContext);
 
@@ -21,6 +22,18 @@ export const SeriesProvider = (props) => {
                 .then(setSeries)
         );
 
+    const getSeriesBooks = () =>
+        getToken().then((token) =>
+            fetch(`/api/seriesBook`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((res) => res.json())
+                .then(setSeriesBooks)
+        );
+
     const addSeries = (series) =>
         getToken().then((token) =>
             fetch("/api/series", {
@@ -33,12 +46,26 @@ export const SeriesProvider = (props) => {
             }).then(getSeries)
         );
 
+    const addSeriesBook = (seriesBook) =>
+        getToken().then((token) =>
+            fetch("/api/seriesBook", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(seriesBook),
+            }).then(getSeriesBooks)
+        );
+
     return (
         <SeriesContext.Provider
             value={{
                 series,
                 getSeries,
-                addSeries
+                getSeriesBooks,
+                addSeries,
+                addSeriesBook
             }}
         >
             {props.children}

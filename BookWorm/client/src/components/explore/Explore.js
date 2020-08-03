@@ -51,7 +51,7 @@ export default function Explore() {
             <>
             <Button onClick={toggleCollapse}>Create Series</Button>
             <Collapse isOpen={collapseState}>
-                <SeriesForm />
+                <SeriesForm toggle={toggleCollapse}/>
             </Collapse>
 
             <div className="bookDiv">

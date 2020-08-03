@@ -2,7 +2,7 @@ import React, { useRef, useContext } from "react";
 import { Form, Button, FormGroup, Input } from "reactstrap";
 import { SeriesContext } from "../../providers/SeriesProvider";
 
-export const SeriesForm = (toggle) => {
+export const SeriesForm = ({toggle}) => {
 
     const { addSeries } = useContext(SeriesContext);
 
@@ -23,7 +23,6 @@ export const SeriesForm = (toggle) => {
                     <Button onClick={(click) => {
                                     click.preventDefault();
                                     constructNewSeries()
-                                    .then(toggle);
                                 }}>
                                     Save
                     </Button>
