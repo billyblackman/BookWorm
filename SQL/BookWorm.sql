@@ -53,7 +53,10 @@ CREATE TABLE [SeriesBook] (
   [Id] integer PRIMARY KEY identity NOT NULL,
   [SeriesId] integer NOT NULL,
   [BookId] integer NOT NULL,
-  [SeriesPosition] integer
+  [SeriesPosition] integer null
+
+  CONSTRAINT FK_SeriesBook_Book FOREIGN KEY (BookId) REFERENCES [Book] ([Id])
+  ON DELETE CASCADE,
 
   CONSTRAINT FK_SeriesBook_Series FOREIGN KEY (SeriesId) REFERENCES [Series] ([Id])
   ON DELETE CASCADE

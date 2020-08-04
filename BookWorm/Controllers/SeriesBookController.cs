@@ -24,10 +24,11 @@ namespace BookWorm.Controllers
             _userRepository = new UserRepository(context);
         }
 
-        [HttpGet("seriesId")]
-        public IActionResult GetSeriesBooks(int seriesId)
+        [HttpGet]
+        public IActionResult GetAll()
         {
-            return Ok(_seriesBookRepository.GetSeriesBooks(seriesId));
+            var currentUser = GetCurrentUser();
+            return Ok(_seriesBookRepository.GetSeriesBooks(currentUser.Id));
         }
 
         [HttpPost]

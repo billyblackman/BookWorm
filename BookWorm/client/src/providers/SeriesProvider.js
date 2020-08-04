@@ -62,6 +62,7 @@ export const SeriesProvider = (props) => {
         <SeriesContext.Provider
             value={{
                 series,
+                seriesBooks,
                 getSeries,
                 getSeriesBooks,
                 addSeries,
