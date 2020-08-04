@@ -9,26 +9,33 @@ export const SeriesModal = ({book, toggle}) => {
     useEffect(() => {
         getSeriesBooks();
         getSeries();
+        
     }, [])
 
-    debugger
-
+    
     const addBookToSeries = (seriesId) => {
+        debugger
         addSeriesBook({
             seriesId: seriesId,
             bookId: book.id
         })
     }
 
+    //what is going on
+
     const seriesRender = () => {
-        if (series.length > 0 && seriesBooks > 0) {
+        if (series.length > 0 && seriesBooks.length > 0) {
             return series.map(s => {
                 const matchingBooks = seriesBooks.filter(sb => sb.series.id === s.id)
                 return (
                     <ListGroup>
                         <ListGroupItem>
                             <ListGroupItemHeading>{s.name}</ListGroupItemHeading>
-                            <Button onClick={addBookToSeries(s.id)}>Add</Button>
+                            <Button onClick={(click) => {
+                                    click.preventDefault();
+                                    addBookToSeries(s.id)}}>
+                                        Add
+                            </Button>
                             {matchingBooks.map(b => {
                                 return (
                                     <ListGroupItemText>{b.book.title}</ListGroupItemText>
@@ -45,6 +52,11 @@ export const SeriesModal = ({book, toggle}) => {
                         return (
                             <ListGroupItem>
                                 <ListGroupItemHeading>{s.name}</ListGroupItemHeading>
+                                <Button onClick={(click) => {
+                                    click.preventDefault();
+                                    addBookToSeries(s.id)}}>
+                                        Add
+                                </Button>
                             </ListGroupItem>
                         )
                     })}
@@ -55,7 +67,6 @@ export const SeriesModal = ({book, toggle}) => {
 
     return (
         <>
-            <Button>Create Series</Button>
             <ListGroup>
                 {seriesRender()}
             </ListGroup>

@@ -11,6 +11,8 @@ export const SeriesForm = ({toggle}) => {
         getSeries();
     }, [])
 
+    debugger
+
     const name = useRef("");
 
     const constructNewSeries = () => {

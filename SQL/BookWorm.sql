@@ -55,7 +55,7 @@ CREATE TABLE [SeriesBook] (
   [BookId] integer NOT NULL,
   [SeriesPosition] integer null
 
-  CONSTRAINT FK_SeriesBook_Book FOREIGN KEY (BookId) REFERENCES [Book] ([Id])
+  CONSTRAINT FK_SeriesBook_Book FOREIGN KEY (BookId) REFERENCES [Book] ([GoogleId])
   ON DELETE CASCADE,
 
   CONSTRAINT FK_SeriesBook_Series FOREIGN KEY (SeriesId) REFERENCES [Series] ([Id])

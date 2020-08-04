@@ -15,12 +15,12 @@ namespace BookWorm.Repositories
         {
             _context = context;
         }
-        public List<SeriesBook> GetSeriesBooks(int userId)
+        public List<SeriesBook> GetSeriesBooks(int id)
         {
             return _context.SeriesBook
                             .Include(sb => sb.Series)
                             .Include(sb => sb.Book)
-                            .Where(sb => sb.Book.Id == userId)
+                            .Where(sb => sb.Book.UserId == id)
                             .ToList();
         }
         public void Add(SeriesBook seriesBook)

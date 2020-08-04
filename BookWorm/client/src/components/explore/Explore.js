@@ -57,7 +57,7 @@ export default function Explore() {
             <div className="bookDiv">
                 {bookItems.map((book) => {
                     return (
-                        <GoogleBook book={book}/>
+                        <GoogleBook key={book.id} book={book}/>
                 )
             })}
             </div>
