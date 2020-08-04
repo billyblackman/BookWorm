@@ -24,13 +24,11 @@ export const CompletionCollapse = ({ googleBook, book, toggle }) => {
         }
         
         setBook(newBook);
-        debugger
     };
 
     const editBookOnClick = () => {
         editBook(updatedBook)
             .then(toggle);
-        debugger
     }
 
 

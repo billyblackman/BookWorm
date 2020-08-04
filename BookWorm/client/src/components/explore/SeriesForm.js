@@ -2,11 +2,13 @@ import React, { useRef, useContext, useEffect, useState } from "react";
 import { Form, Button, FormGroup, Input, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from "reactstrap";
 import { SeriesContext } from "../../providers/SeriesProvider";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
+import { BookContext } from "../../providers/BookProvider";
 
-export const SeriesForm = ({toggle}) => {
+export const SeriesForm = ({ toggle }) => {
 
     const { addSeries, series, getSeries, seriesBooks, getSeriesBooks } = useContext(SeriesContext);
     const { getSeriesGoogleBooksByIds, seriesGoogleBooks } = useContext(GoogleBookContext);
+    const { addBookToQueue } = useContext(BookContext);
     const [seriesBooksLoaded, setSeriesBooksLoaded] = useState(false);
 
     const idArrayFunction = () => {
@@ -14,37 +16,47 @@ export const SeriesForm = ({toggle}) => {
     }
 
     useEffect(() => {
-        getSeries()
-        .then(getSeriesBooks)
-        .then(idArrayFunction)
-        .then((bookIdArray) => getSeriesGoogleBooksByIds(bookIdArray))
-        .then(setSeriesBooksLoaded(true));
+            getSeriesBooks()
+            .then(idArrayFunction)
+            .then((bookIdArray) => getSeriesGoogleBooksByIds(bookIdArray))
+            .then(setSeriesBooksLoaded(true));
+    }, [])
+
+    useEffect(() => {
+        getSeries();
     }, [])
 
     const name = useRef("");
 
     const constructNewSeries = () => {
-        return addSeries({
+        addSeries({
             Name: name.current.value
-        }).then(toggle)
+        });
+        toggle();
+    }
+
+    const addSeriesToQueue = (matchingBooks) => {
+        matchingBooks.map(seriesBook => {
+            addBookToQueue(seriesBook.book.googleId)
+        });
     }
 
     const seriesRender = () => {
-        if (series.length > 0 && seriesBooks.length > 0 && seriesGoogleBooks.length > 0) {
+        if (series.length > 0 && seriesBooks.length > 0) {
             return series.map(s => {
                 const matchingBooks = seriesBooks.filter(sb => sb.seriesId === s.id)
                 return (
-                    <ListGroup>
-                        <ListGroupItem>
-                            <ListGroupItemHeading>{s.name}</ListGroupItemHeading>
-                            {matchingBooks.map(b => {
-                                const matchingGoogleBook = seriesGoogleBooks.find(sgb => sgb.id === b.book.googleId)
-                                return (
-                                    <ListGroupItemText>{matchingGoogleBook.title}</ListGroupItemText>
-                                )
-                            })}
-                        </ListGroupItem>
-                    </ListGroup>
+                    <>
+                        <ListGroup>
+                            <ListGroupItem>
+                                {s.name}
+                            </ListGroupItem>
+                        </ListGroup>
+                        <Button onClick={(click) => {
+                                    click.preventDefault();
+                                    addSeriesToQueue(matchingBooks);
+                                    toggle()}}>Add Series to Queue</Button>
+                    </>
                 )
             })
         } else {
@@ -68,10 +80,10 @@ export const SeriesForm = ({toggle}) => {
                 <FormGroup>
                     <Input type="text" innerRef={name} placeholder="New Series" />
                     <Button onClick={(click) => {
-                                    click.preventDefault();
-                                    constructNewSeries()
-                                }}>
-                                    Save
+                        click.preventDefault();
+                        constructNewSeries()
+                    }}>
+                        Save
                     </Button>
                 </FormGroup>
             </Form>

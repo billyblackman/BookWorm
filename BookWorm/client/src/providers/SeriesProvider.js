@@ -19,7 +19,9 @@ export const SeriesProvider = (props) => {
                 },
             })
                 .then((res) => res.json())
-                .then(setSeries)
+                .then((res) => {setSeries(res);
+                    let series = res;
+                    return series})
         );
 
     const getSeriesBooks = () =>
@@ -31,7 +33,9 @@ export const SeriesProvider = (props) => {
                 },
             })
                 .then((res) => res.json())
-                .then(setSeriesBooks)
+                .then((res) => {setSeriesBooks(res);
+                    let seriesBooks = res;
+                    return seriesBooks})
         );
 
     const addSeries = (series) =>

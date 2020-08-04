@@ -61,7 +61,6 @@ export const BookProvider = (props) => {
 
       const addBook = (book) =>
       getToken().then((token) => {
-        debugger
       return fetch("/api/book", {
           method: "POST",
           headers: {
