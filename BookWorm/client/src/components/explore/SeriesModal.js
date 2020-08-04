@@ -2,15 +2,23 @@ import React, { useContext, useEffect } from "react";
 import { Button, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Badge } from "reactstrap";
 import { SeriesContext } from "../../providers/SeriesProvider";
 
-export const SeriesModal = () => {
+export const SeriesModal = ({book, toggle}) => {
 
-    const { series, getSeries, seriesBooks, getSeriesBooks } = useContext(SeriesContext);
+    const { series, getSeries, seriesBooks, getSeriesBooks, addSeriesBook } = useContext(SeriesContext);
 
     useEffect(() => {
-        getSeries();
         getSeriesBooks();
+        getSeries();
     }, [])
 
+    debugger
+
+    const addBookToSeries = (seriesId) => {
+        addSeriesBook({
+            seriesId: seriesId,
+            bookId: book.id
+        })
+    }
 
     const seriesRender = () => {
         if (series.length > 0 && seriesBooks > 0) {
@@ -20,6 +28,7 @@ export const SeriesModal = () => {
                     <ListGroup>
                         <ListGroupItem>
                             <ListGroupItemHeading>{s.name}</ListGroupItemHeading>
+                            <Button onClick={addBookToSeries(s.id)}>Add</Button>
                             {matchingBooks.map(b => {
                                 return (
                                     <ListGroupItemText>{b.book.title}</ListGroupItemText>

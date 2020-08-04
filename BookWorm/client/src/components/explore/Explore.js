@@ -49,7 +49,7 @@ export default function Explore() {
     const conditionalBookRender = () => {
         return bookItems !== undefined ? (
             <>
-            <Button onClick={toggleCollapse}>Create Series</Button>
+            <Button onClick={toggleCollapse}>Series</Button>
             <Collapse isOpen={collapseState}>
                 <SeriesForm toggle={toggleCollapse}/>
             </Collapse>

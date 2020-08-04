@@ -39,7 +39,7 @@ export const GoogleBook = ({book}) => {
             <Button color="primary" onClick={addBookToWishlist}>Add to Wishlist</Button>
             <Button color="primary" onClick={toggleModal}>Series</Button>
             <Modal isOpen={modal}>
-                <SeriesModal toggle={toggleModal}/>
+                <SeriesModal book={book} toggle={toggleModal}/>
             </Modal>
         </Card>
     )
