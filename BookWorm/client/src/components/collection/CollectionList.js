@@ -11,9 +11,9 @@ export default function CollectionList() {
     const { getGoogleBooksByIds, googleBooks } = useContext(GoogleBookContext);
     const [booksLoaded, setBooksLoaded] = useState(false);
     
-    const matchingBooks = books.filter(book => book.purchased === true);
-
-    const idArrayFunction = () => {
+    
+    const idArrayFunction = (books) => {
+        const matchingBooks = books.filter(book => book.purchased === true);
         return matchingBooks.map((book) => book.googleId)
     }
 

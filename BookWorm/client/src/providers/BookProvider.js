@@ -18,7 +18,9 @@ export const BookProvider = (props) => {
           },
         })
           .then((res) => res.json())
-          .then(setBooks)
+          .then((res) => {setBooks(res);
+          let books = res;
+          return books})
       );
 
     const getCollection = () =>
@@ -58,16 +60,20 @@ export const BookProvider = (props) => {
       );
 
       const addBook = (book) =>
-      getToken().then((token) =>
-      fetch("/api/book", {
+      getToken().then((token) => {
+        debugger
+      return fetch("/api/book", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
             },
             body: JSON.stringify(book),
-        }).then(getCollection)
-      );
+        }).then((res) => res.json())
+          .then((res) => {getBooks();
+          let newBook = res;
+          return newBook})
+      });
 
       const editBook = (book) => 
         getToken().then((token) =>
@@ -106,7 +112,8 @@ export const BookProvider = (props) => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
             },
-        }).then(getCollection)
+        }).then((res) => res.json())
+          .then(getCollection)
       );
 
       const removeBookFromQueue = (googleId) =>

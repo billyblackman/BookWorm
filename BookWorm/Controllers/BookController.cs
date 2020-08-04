@@ -72,7 +72,7 @@ namespace BookWorm.Controllers
             var currentUser = GetCurrentUser();
             book.UserId = currentUser.Id;
             _bookRepository.Add(book);
-            return CreatedAtAction("Get", new { id = book.Id }, book);
+            return CreatedAtAction("GetByGoogleId", new { googleId = book.GoogleId }, book);
         }
 
         [HttpPut("wishlistToCollection/{googleId}")]

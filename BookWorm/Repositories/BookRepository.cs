@@ -59,6 +59,7 @@ namespace BookWorm.Repositories
             return _context.Book
                             .FirstOrDefault(b => b.GoogleId == googleId && b.UserId == userId);
         }
+
         public void DeleteByGoogleId(string googleId, int userId)
         {
             var book = GetByGoogleId(googleId, userId);

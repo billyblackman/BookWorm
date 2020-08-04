@@ -15,8 +15,6 @@ export const WishlistBook = ({googleBook}) => {
         addBookFromWishlistToCollection(googleBook.id)
     }
 
-    debugger
-
     return googleBook.hasOwnProperty("volumeInfo") ? (
         <>
             <Card className="googleBook">

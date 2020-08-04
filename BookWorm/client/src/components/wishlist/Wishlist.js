@@ -11,9 +11,9 @@ export default function Wishlist() {
     const { getGoogleBooksByIds, googleBooks } = useContext(GoogleBookContext);
     const [booksLoaded, setBooksLoaded] = useState(false);
 
-    const matchingBooks = books.filter(book => book.purchased === false);
-
-    const idArrayFunction = () => {
+    
+    const idArrayFunction = (books) => {
+        const matchingBooks = books.filter(book => book.purchased === false);
         return matchingBooks.map((book) => book.googleId)
     }
 

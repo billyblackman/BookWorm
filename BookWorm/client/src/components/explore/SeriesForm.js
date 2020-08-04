@@ -1,17 +1,25 @@
-import React, { useRef, useContext, useEffect } from "react";
+import React, { useRef, useContext, useEffect, useState } from "react";
 import { Form, Button, FormGroup, Input, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from "reactstrap";
 import { SeriesContext } from "../../providers/SeriesProvider";
+import { GoogleBookContext } from "../../providers/GoogleBookProvider";
 
 export const SeriesForm = ({toggle}) => {
 
     const { addSeries, series, getSeries, seriesBooks, getSeriesBooks } = useContext(SeriesContext);
+    const { getSeriesGoogleBooksByIds, seriesGoogleBooks } = useContext(GoogleBookContext);
+    const [seriesBooksLoaded, setSeriesBooksLoaded] = useState(false);
+
+    const idArrayFunction = () => {
+        return seriesBooks.map((sb) => sb.book.googleId)
+    }
 
     useEffect(() => {
-        getSeriesBooks();
-        getSeries();
+        getSeries()
+        .then(getSeriesBooks)
+        .then(idArrayFunction)
+        .then((bookIdArray) => getSeriesGoogleBooksByIds(bookIdArray))
+        .then(setSeriesBooksLoaded(true));
     }, [])
-
-    debugger
 
     const name = useRef("");
 
@@ -22,16 +30,17 @@ export const SeriesForm = ({toggle}) => {
     }
 
     const seriesRender = () => {
-        if (series.length > 0 && seriesBooks > 0) {
+        if (series.length > 0 && seriesBooks.length > 0 && seriesGoogleBooks.length > 0) {
             return series.map(s => {
-                const matchingBooks = seriesBooks.filter(sb => sb.series.id === s.id)
+                const matchingBooks = seriesBooks.filter(sb => sb.seriesId === s.id)
                 return (
                     <ListGroup>
                         <ListGroupItem>
                             <ListGroupItemHeading>{s.name}</ListGroupItemHeading>
                             {matchingBooks.map(b => {
+                                const matchingGoogleBook = seriesGoogleBooks.find(sgb => sgb.id === b.book.googleId)
                                 return (
-                                    <ListGroupItemText>{b.book.title}</ListGroupItemText>
+                                    <ListGroupItemText>{matchingGoogleBook.title}</ListGroupItemText>
                                 )
                             })}
                         </ListGroupItem>

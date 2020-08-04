@@ -1,24 +1,38 @@
 import React, { useContext, useEffect } from "react";
 import { Button, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Badge } from "reactstrap";
 import { SeriesContext } from "../../providers/SeriesProvider";
+import { BookContext } from "../../providers/BookProvider";
 
 export const SeriesModal = ({book, toggle}) => {
 
     const { series, getSeries, seriesBooks, getSeriesBooks, addSeriesBook } = useContext(SeriesContext);
+    const { addBook, books, getBooks } = useContext(BookContext);
 
     useEffect(() => {
         getSeriesBooks();
         getSeries();
-        
+        getBooks()
     }, [])
 
-    
-    const addBookToSeries = (seriesId) => {
-        debugger
+    const addBookFunction = () => {
+        return addBook({
+            GoogleId: book.id,
+            ImageLink: book.volumeInfo.imageLinks.thumbnail,
+            Purchased: false,
+            CompletionPercentage: 0
+        });
+    }
+
+    const addBookToSeriesFunction = (seriesId, bookId) => {
         addSeriesBook({
             seriesId: seriesId,
-            bookId: book.id
+            bookId: bookId
         })
+    }
+    
+    const addBookToSeries = (seriesId) => {
+        addBookFunction()
+        .then((book) => addBookToSeriesFunction(seriesId, book.id))
     }
 
     //what is going on
@@ -54,7 +68,8 @@ export const SeriesModal = ({book, toggle}) => {
                                 <ListGroupItemHeading>{s.name}</ListGroupItemHeading>
                                 <Button onClick={(click) => {
                                     click.preventDefault();
-                                    addBookToSeries(s.id)}}>
+                                    addBookToSeries(s.id);
+                                    toggle()}}>
                                         Add
                                 </Button>
                             </ListGroupItem>

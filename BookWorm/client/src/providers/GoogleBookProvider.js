@@ -7,6 +7,7 @@ export const GoogleBookProvider = (props) => {
     const apiKey = process.env.REACT_APP_GOOGLE_API_KEY
 
     const [googleBooks, setGoogleBooks] = useState([]);
+    const [seriesGoogleBooks, setSeriesGoogleBooks] = useState([]);
     const [googleBook, setGoogleBook] = useState({volumeInfo: {imageLinks: {}}});
 
     const searchByTitle = (searchTerms) => {
@@ -54,6 +55,17 @@ export const GoogleBookProvider = (props) => {
       .then((bookArray) => setGoogleBooks(bookArray));
     }
 
+    const getSeriesGoogleBooksByIds = (googleBookIdArray) => {
+
+      Promise.all(googleBookIdArray.map((id) => {
+        return fetch(`${apiUrl}/${id}`)
+        .then((response) => {
+          return response.json()
+        })
+      }))
+      .then((bookArray) => setSeriesGoogleBooks(bookArray));
+    }
+
     return (
         <GoogleBookContext.Provider
           value={{
@@ -63,8 +75,10 @@ export const GoogleBookProvider = (props) => {
             searchByCategory,
             googleBook,
             googleBooks,
+            seriesGoogleBooks,
             getGoogleBookById,
-            getGoogleBooksByIds
+            getGoogleBooksByIds,
+            getSeriesGoogleBooksByIds
           }}
         >
           {props.children}

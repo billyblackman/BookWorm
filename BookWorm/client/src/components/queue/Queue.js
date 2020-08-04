@@ -11,10 +11,10 @@ export default function Queue() {
     const { getGoogleBooksByIds, googleBooks } = useContext(GoogleBookContext);
     const [booksLoaded, setBooksLoaded] = useState(false);
     
-    const matchingBooks = books.filter(book => book.queuePosition > 0).sort((a, b) => (a.queuePosition > b.queuePosition) ? 1 : -1);
-
     
-    const idArrayFunction = () => {
+    
+    const idArrayFunction = (books) => {
+        const matchingBooks = books.filter(book => book.queuePosition > 0).sort((a, b) => (a.queuePosition > b.queuePosition) ? 1 : -1);
         return matchingBooks.map((book) => book.googleId)
     }
     
