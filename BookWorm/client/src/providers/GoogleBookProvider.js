@@ -46,7 +46,7 @@ export const GoogleBookProvider = (props) => {
 
     const getGoogleBooksByIds = (googleBookIdArray) => {
 
-      Promise.all(googleBookIdArray.map((id) => {
+      return Promise.all(googleBookIdArray.map((id) => {
         return fetch(`${apiUrl}/${id}`)
         .then((response) => {
           return response.json()

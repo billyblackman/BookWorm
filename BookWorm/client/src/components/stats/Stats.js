@@ -29,7 +29,7 @@ export default function Stats() {
                 <ListGroupItem>Total Books: {books.length}</ListGroupItem>
                 <ListGroupItem>Collection: {collectionArray.length}</ListGroupItem>
                 <ListGroupItem>Wishlist: {wishlistArray.length}</ListGroupItem>
-                <ListGroupItem>Queue: {queueArray.length}</ListGroupItem>
+                <ListGroupItem>Queued: {queueArray.length}</ListGroupItem>
                 <ListGroupItem>Queue Completion: {completePercentage}%</ListGroupItem>
 
             </ListGroup>

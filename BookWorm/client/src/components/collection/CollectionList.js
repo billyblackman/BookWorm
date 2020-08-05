@@ -12,23 +12,30 @@ export default function CollectionList() {
     const [booksLoaded, setBooksLoaded] = useState(false);
     
     
-    const idArrayFunction = (books) => {
+    
+    const idArrayFunction = () => {
         const matchingBooks = books.filter(book => book.purchased === true);
         return matchingBooks.map((book) => book.googleId)
     }
 
     useEffect(() => {
         getBooks()
-        .then(idArrayFunction)
-        .then((bookIdArray) => getGoogleBooksByIds(bookIdArray))
-        .then(setBooksLoaded(true));
+        
     }, [])
+
+    useEffect(() => {
+        if (books.length > 0) {
+            let idArray = idArrayFunction();
+            getGoogleBooksByIds(idArray)
+            .then(() => setBooksLoaded(true))
+        }
+    }, [books])
     
     return googleBooks.length > 0 && booksLoaded ? (
         <>
         <div className="bookDiv">
             {googleBooks.map((googleBook) => {
-                const book = books.find(b => b.googleId === googleBook.id);
+                const book = books.find(b => b.googleId === googleBook.id) || {}
                 return (
                     <CollectionBook key={book.id} book={book} googleBook={googleBook}/>
             )

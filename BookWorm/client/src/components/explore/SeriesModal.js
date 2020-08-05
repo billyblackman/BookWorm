@@ -62,16 +62,17 @@ export const SeriesModal = ({book, toggle}) => {
     }
 
     const seriesRender = () => {
-
         if (seriesGoogleBooks.length > 0) {
             return series.map(s => {
-                const matchingBooks = seriesBooks.filter(sb => sb.series.id === s.id)
+                const matchingBooks = seriesBooks.filter(sb => sb.seriesId === s.id)
                 return (
                     <ListGroup>
                         <ListGroupItem>
                             <ListGroupItemHeading>{s.name}</ListGroupItemHeading>
                                 {matchingBooks.map(b => {
-                                    const matchingGoogleBook = seriesGoogleBooks.find(sgb => sgb.Id === b.book.GoogleId)
+                                    debugger
+                                    const matchingGoogleBook = seriesGoogleBooks.find(sgb => sgb.id === b.book.googleId)
+                                    console.log(matchingBooks);
                                     return (
                                         <ListGroupItemText>{matchingGoogleBook.volumeInfo.title}</ListGroupItemText>
                                     )
@@ -89,7 +90,7 @@ export const SeriesModal = ({book, toggle}) => {
                                         Add collection book
                                 </Button>
                         </ListGroupItem>
-                        <Button onClick={toggle}>Cancel</Button>
+                        
                     </ListGroup>
                 )
             })
@@ -124,6 +125,7 @@ export const SeriesModal = ({book, toggle}) => {
         <>
             <ListGroup>
                 {seriesRender()}
+                <Button color="danger" onClick={toggle}>Cancel</Button>
             </ListGroup>
         </>
     )
