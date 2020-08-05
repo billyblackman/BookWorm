@@ -15,31 +15,11 @@ namespace BookWorm.Repositories
         {
             _context = context;
         }
-        public List<Book> GetCollection(int id)
-        {
-            return _context.Book
-                            .Where(b => b.UserId == id && b.Purchased == true)
-                            .ToList();
-        }
-
-        public List<Book> GetWishlist(int id)
-        {
-            return _context.Book
-                            .Where(b => b.UserId == id && b.Purchased == false)
-                            .ToList();
-        }
 
         public List<Book> GetBooks(int id)
         {
             return _context.Book
                             .Where(b => b.UserId == id)
-                            .ToList();
-        }
-        public List<Book> GetQueue(int id)
-        {
-            return _context.Book
-                            .Where(b => b.UserId == id && b.QueuePosition > 0)
-                            .OrderBy(b => b.QueuePosition)
                             .ToList();
         }
 

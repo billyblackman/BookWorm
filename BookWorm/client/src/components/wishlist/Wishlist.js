@@ -7,7 +7,7 @@ import { Spinner } from "reactstrap";
 
 export default function Wishlist() {
 
-    const { books, getBooks, getWishlist } = useContext(BookContext);
+    const { books, getBooks } = useContext(BookContext);
     const { getGoogleBooksByIds, googleBooks } = useContext(GoogleBookContext);
     const [booksLoaded, setBooksLoaded] = useState(false);
 

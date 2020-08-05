@@ -47,7 +47,7 @@ export const SeriesForm = ({ toggle }) => {
                 const matchingBooks = seriesBooks.filter(sb => sb.seriesId === s.id)
                 return (
                     <>
-                        <ListGroup>
+                        <ListGroup key={s.id}>
                             <ListGroupItem>
                                 {s.name}
                             </ListGroupItem>

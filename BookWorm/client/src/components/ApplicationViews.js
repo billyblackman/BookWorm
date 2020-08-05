@@ -9,6 +9,7 @@ import CollectionList from "./collection/CollectionList";
 import Wishlist from "./wishlist/Wishlist";
 import Queue from "./queue/Queue";
 import { BookContext } from "../providers/BookProvider";
+import Stats from "./stats/Stats";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserContext);
@@ -43,6 +44,10 @@ export default function ApplicationViews() {
 
         <Route path="/queue">
           <Queue />
+        </Route>
+
+        <Route path="/stats">
+          <Stats />
         </Route>
 
       </Switch>

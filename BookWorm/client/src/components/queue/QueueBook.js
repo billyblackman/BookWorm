@@ -2,8 +2,9 @@ import React, { useContext, useState } from "react";
 import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Progress, Collapse } from "reactstrap";
 import { BookContext } from "../../providers/BookProvider";
 import { CompletionCollapse } from "./CompletionCollapse";
+import "../../styles/book.css"
 
-export const QueueBook = ({ googleBook, book }) => {
+export const QueueBook = ({ googleBook, book, books }) => {
 
     const { removeBookFromQueue } = useContext(BookContext);
 
@@ -11,7 +12,7 @@ export const QueueBook = ({ googleBook, book }) => {
     const toggleCollapse = () => setCollapseState(!collapseState);
 
     const deleteBookFromQueue = () => {
-        removeBookFromQueue(googleBook.id)
+        removeBookFromQueue(googleBook.id);
     }
 
     const conditionalProgress = () => {
@@ -19,7 +20,7 @@ export const QueueBook = ({ googleBook, book }) => {
             if (book.completionPercentage > 0) {
                 return (
                     <>
-                        <Progress value={book.completionPercentage}>{book.completionPercentage}% Complete</Progress>
+                        <Progress className="progressBar" value={book.completionPercentage}>{book.completionPercentage}% Complete</Progress>
                         <Button onClick={toggleCollapse}>Log progress</Button>
                     </>
                 )

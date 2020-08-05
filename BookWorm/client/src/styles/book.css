@@ -20,3 +20,7 @@
 .highlighted {
     box-shadow: rgb(224, 222, 52) 0px 0px 7px 3px;
 }
+
+.progressBar {
+    margin: 10px 1px 10px 1px;
+}

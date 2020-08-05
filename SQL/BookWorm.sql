@@ -55,7 +55,7 @@ CREATE TABLE [SeriesBook] (
   [BookId] integer NOT NULL,
   [SeriesPosition] integer null
 
-  CONSTRAINT FK_SeriesBook_Book FOREIGN KEY (BookId) REFERENCES [Book] ([GoogleId])
+  CONSTRAINT FK_SeriesBook_Book FOREIGN KEY (BookId) REFERENCES [Book] ([Id])
   ON DELETE CASCADE,
 
   CONSTRAINT FK_SeriesBook_Series FOREIGN KEY (SeriesId) REFERENCES [Series] ([Id])
@@ -67,12 +67,13 @@ SET IDENTITY_INSERT [User] ON
 INSERT INTO [User]
   ([Id], [FirebaseUserId], [FirstName], [LastName], [Email], [CreateDateTime])
 VALUES
-  (1, 'OgqVHYage6ctaBtudQakIMGB5SG2', 'Billy', 'Blackman', 'user@user.com', 2020-07-25);
+  (1, 'OgqVHYage6ctaBtudQakIMGB5SG2', 'Billy', 'Blackman', 'user@user.com', 2020-07-25),
+  (2, 'B807sB4pEDVUEmt0w6ohQFGhkmh1', 'John', 'Doe', 'test@test.com', 2020-07-25);
 SET IDENTITY_INSERT [User] OFF
 
 SET IDENTITY_INSERT [Book] ON
 INSERT INTO [Book]
   ([Id], [GoogleId], [UserId], [ImageLink], [Purchased], [CompletionPercentage], [Rating], [QueuePosition], [StartDate], [EndDate])
 VALUES 
-  (1, '5NomkK4EV68C', 1, 'http://books.google.com/books/content?id=5NomkK4EV68C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 1, 0, null, null, null, null),
-  (2, 'v7eWDwAAQBAJ', 1, 'http://books.google.com/books/content?id=v7eWDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 1, 0, null, null, null, null)
+  (1, '5NomkK4EV68C', 1, 'http://books.google.com/books/content?id=5NomkK4EV68C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 1, 0, 0, 0, null, null),
+  (2, 'v7eWDwAAQBAJ', 1, 'http://books.google.com/books/content?id=v7eWDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', 1, 0, 0, 0, null, null)

@@ -34,30 +34,6 @@ namespace BookWorm.Controllers
             return Ok(_bookRepository.GetBooks(currentUser.Id));
         }
 
-        [HttpGet("collection")]
-        public IActionResult GetCollection()
-        {
-            var currentUser = GetCurrentUser();
-
-            return Ok(_bookRepository.GetCollection(currentUser.Id));
-        }
-
-        [HttpGet("wishlist")]
-        public IActionResult GetWishlist()
-        {
-            var currentUser = GetCurrentUser();
-
-            return Ok(_bookRepository.GetWishlist(currentUser.Id));
-        }
-
-        [HttpGet("queue")]
-        public IActionResult GetQueue()
-        {
-            var currentUser = GetCurrentUser();
-
-            return Ok(_bookRepository.GetQueue(currentUser.Id));
-        }
-
         [HttpGet("getByGoogleId/{googleId}")]
         public IActionResult GetByGoogleId(string googleId)
         {
