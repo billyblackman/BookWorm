@@ -28,9 +28,18 @@ export const GoogleBook = ({book}) => {
         })
     }
 
+    debugger
+
     return (
         <Card className="googleBook">
-            <CardImg src={book.volumeInfo.imageLinks.thumbnail} />
+            {
+                book.volumeInfo.hasOwnProperty("imageLinks") ?
+                (
+                    <CardImg src={book.volumeInfo.imageLinks.thumbnail} />
+                ) : (
+                    <></>
+                )
+            }
             <CardBody>
                 <CardTitle>{book.volumeInfo.title}</CardTitle>
                 <CardSubtitle>{book.volumeInfo.subtitle}</CardSubtitle>

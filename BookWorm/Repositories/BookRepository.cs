@@ -40,9 +40,22 @@ namespace BookWorm.Repositories
                             .FirstOrDefault(b => b.GoogleId == googleId && b.UserId == userId);
         }
 
+        public Book GetById(int id, int userId)
+        {
+            return _context.Book
+                            .FirstOrDefault(b => b.Id == id && b.UserId == userId);
+        }
+
         public void DeleteByGoogleId(string googleId, int userId)
         {
             var book = GetByGoogleId(googleId, userId);
+            _context.Book.Remove(book);
+            _context.SaveChanges();
+        }
+
+        public void DeleteById(int id, int userId)
+        {
+            var book = GetById(id, userId);
             _context.Book.Remove(book);
             _context.SaveChanges();
         }

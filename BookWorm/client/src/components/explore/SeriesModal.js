@@ -11,20 +11,24 @@ export const SeriesModal = ({book, toggle}) => {
     const { getSeriesGoogleBooksByIds, seriesGoogleBooks } = useContext(GoogleBookContext);
     const [booksLoaded, setBooksLoaded] = useState(false);
 
-    const idArrayFunction = (seriesBooks) => {
+    const idArrayFunction = () => {
         return seriesBooks.map((sb) => sb.book.googleId)
     }
 
     useEffect(() => {
-        getSeriesBooks()
-        .then(idArrayFunction)
-        .then((bookIdArray) => getSeriesGoogleBooksByIds(bookIdArray))
-        .then(setBooksLoaded(true));
-    }, [])
-
-    useEffect(() => {
+        getSeriesBooks();
         getSeries();
     }, [])
+
+    
+    useEffect(() => {
+        if (seriesBooks.length > 0) {
+            let idArray = idArrayFunction();
+            getSeriesGoogleBooksByIds(idArray)
+            .then(() => setBooksLoaded(true))
+        }
+    }, [seriesBooks])
+
 
     const addWishlistBookFunction = () => {
         return addBook({
@@ -62,17 +66,15 @@ export const SeriesModal = ({book, toggle}) => {
     }
 
     const seriesRender = () => {
-        if (seriesGoogleBooks.length > 0) {
+        if (seriesGoogleBooks.length > 0 && booksLoaded) {
             return series.map(s => {
                 const matchingBooks = seriesBooks.filter(sb => sb.seriesId === s.id)
                 return (
                     <ListGroup>
-                        <ListGroupItem>
+                        <ListGroupItem key={s.id}>
                             <ListGroupItemHeading>{s.name}</ListGroupItemHeading>
                                 {matchingBooks.map(b => {
-                                    debugger
                                     const matchingGoogleBook = seriesGoogleBooks.find(sgb => sgb.id === b.book.googleId)
-                                    console.log(matchingBooks);
                                     return (
                                         <ListGroupItemText>{matchingGoogleBook.volumeInfo.title}</ListGroupItemText>
                                     )
@@ -99,7 +101,7 @@ export const SeriesModal = ({book, toggle}) => {
                 <ListGroup>
                     {series.map(s => {
                         return (
-                            <ListGroupItem>
+                            <ListGroupItem key={s.id}>
                                 <ListGroupItemHeading>{s.name}</ListGroupItemHeading>
                                 <Button onClick={(click) => {
                                     click.preventDefault();

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
 import "../../styles/book.css"
 import { BookContext } from "../../providers/BookProvider";
@@ -12,23 +12,29 @@ export default function Wishlist() {
     const [booksLoaded, setBooksLoaded] = useState(false);
 
     
-    const idArrayFunction = (books) => {
+    const idArrayFunction = () => {
         const matchingBooks = books.filter(book => book.purchased === false);
         return matchingBooks.map((book) => book.googleId)
     }
 
     useEffect(() => {
         getBooks()
-        .then(idArrayFunction)
-        .then((bookIdArray) => getGoogleBooksByIds(bookIdArray))
-        .then(setBooksLoaded(true));
+        
     }, [])
+
+    useEffect(() => {
+        if (books.length > 0) {
+            let idArray = idArrayFunction();
+            getGoogleBooksByIds(idArray)
+            .then(() => setBooksLoaded(true))
+        }
+    }, [books])
 
         return googleBooks.length > 0 && booksLoaded ? (
             <>
             <div className="bookDiv">
                 {googleBooks.map((googleBook) => {
-                    const book = books.find(b => b.googleId === googleBook.id);
+                    const book = books.find(b => b.googleId === googleBook.id && b.purchased === false) || {}
                     return (
                         <WishlistBook key={book.id} book={book} googleBook={googleBook}/>
                 )

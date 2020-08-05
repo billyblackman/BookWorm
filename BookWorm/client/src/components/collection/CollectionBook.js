@@ -1,15 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Spinner, Popover, Media, Modal } from "reactstrap";
 import { BookContext } from "../../providers/BookProvider";
 
-export const CollectionBook = ({googleBook}) => {
+export const CollectionBook = ({googleBook, book}) => {
 
-    const { deleteBookByGoogleId, addBookToQueue } = useContext(BookContext);
-    const [componentState, setComponentState] = useState(false);
-    const update = () => setComponentState(!componentState);
+    const { deleteBook, addBookToQueue } = useContext(BookContext);
 
     const deleteBookFromCollection = () => {
-        deleteBookByGoogleId(googleBook.id);
+        deleteBook(book.id);
     }
 
     const addToQueue = () => {

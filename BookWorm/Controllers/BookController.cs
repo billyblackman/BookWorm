@@ -101,6 +101,15 @@ namespace BookWorm.Controllers
             _bookRepository.DeleteByGoogleId(googleId, currentUser.Id);
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var currentUser = GetCurrentUser();
+
+            _bookRepository.DeleteById(id, currentUser.Id);
+            return NoContent();
+        }
         private User GetCurrentUser()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

@@ -1,16 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Spinner } from "reactstrap";
 import { BookContext } from "../../providers/BookProvider";
 
-export const WishlistBook = ({googleBook}) => {
+export const WishlistBook = ({googleBook, book}) => {
 
-    const { deleteBookByGoogleId, addBookFromWishlistToCollection } = useContext(BookContext);
-    const [componentState, setComponentState] = useState(false);
-    const update = () => setComponentState(!componentState);
+    const { deleteBook, addBookFromWishlistToCollection } = useContext(BookContext);
 
     const deleteBookFromWishlist = () => {
-        deleteBookByGoogleId(googleBook.id);
-        update();
+        deleteBook(book.id);
     }
 
     const addToCollection = () => {
@@ -26,7 +23,7 @@ export const WishlistBook = ({googleBook}) => {
                     <CardSubtitle>{googleBook.volumeInfo.subtitle}</CardSubtitle>
                 </CardBody>
                 <Button onClick={addToCollection}>Add to Collection</Button>
-                <Button color="danger" onClick={deleteBookFromWishlist}>Delete from Wishlist</Button>
+                <Button color="danger" onClick={deleteBookFromWishlist}>Delete</Button>
             </Card>
         </>
     ) : (

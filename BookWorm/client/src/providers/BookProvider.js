@@ -71,6 +71,22 @@ export const BookProvider = (props) => {
       })
     );
 
+    const deleteBook = (id) =>
+    getToken().then((token) =>
+      fetch(`/api/book/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((resp) => {
+        if (resp.ok) {
+          getBooks();
+        } else {
+          throw new Error("Unauthorized");
+        }
+      })
+    );
+
   const addBookToQueue = (googleId) =>
     getToken().then((token) =>
       fetch(`/api/book/addBookToQueue/${googleId}`, {
@@ -123,6 +139,7 @@ export const BookProvider = (props) => {
         addBookFromWishlistToCollection,
         addBookToQueue,
         removeBookFromQueue,
+        deleteBook,
         deleteBookByGoogleId
       }}
     >

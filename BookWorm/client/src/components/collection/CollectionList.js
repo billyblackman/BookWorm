@@ -20,7 +20,6 @@ export default function CollectionList() {
 
     useEffect(() => {
         getBooks()
-        
     }, [])
 
     useEffect(() => {
@@ -35,7 +34,7 @@ export default function CollectionList() {
         <>
         <div className="bookDiv">
             {googleBooks.map((googleBook) => {
-                const book = books.find(b => b.googleId === googleBook.id) || {}
+                const book = books.find(b => b.googleId === googleBook.id && b.purchased === true) || {}
                 return (
                     <CollectionBook key={book.id} book={book} googleBook={googleBook}/>
             )

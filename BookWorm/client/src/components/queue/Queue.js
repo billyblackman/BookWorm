@@ -13,25 +13,31 @@ export default function Queue() {
 
 
 
-    const idArrayFunction = (books) => {
+    const idArrayFunction = () => {
         const matchingBooks = books.filter(book => book.queuePosition > 0).sort((a, b) => (a.queuePosition > b.queuePosition) ? 1 : -1);
         return matchingBooks.map((book) => book.googleId)
     }
 
     useEffect(() => {
         getBooks()
-            .then(idArrayFunction)
-            .then((bookIdArray) => getGoogleBooksByIds(bookIdArray))
-            .then(setBooksLoaded(true));
+            
     }, [])
+
+    useEffect(() => {
+        if (books.length > 0) {
+            let idArray = idArrayFunction();
+            getGoogleBooksByIds(idArray)
+            .then(() => setBooksLoaded(true))
+        }
+    }, [books])
 
     return googleBooks.length > 0 && booksLoaded ? (
         <>
             <div className="bookDiv">
                 {googleBooks.map((googleBook) => {
-                    const book = books.find(b => b.googleId === googleBook.id)
+                    const book = books.find(b => b.googleId === googleBook.id) || {}
                     return (
-                        <QueueBook key={googleBook.id} books={books} book={book} googleBook={googleBook} />
+                        <QueueBook key={book.id} books={books} book={book} googleBook={googleBook} />
                     )
                 })}
             </div>

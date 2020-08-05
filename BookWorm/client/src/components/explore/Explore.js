@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
 import { Form, FormGroup, Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Collapse } from "reactstrap";
 import "../../styles/book.css"
@@ -15,6 +15,15 @@ export default function Explore() {
 
     const [collapseState, setCollapseState] = useState(false);
     const toggleCollapse = () => setCollapseState(!collapseState);
+
+    const [bookItems, setBooksItems] = useState([]);
+
+    useEffect(() => {
+        if (googleBooks.hasOwnProperty("items")) {
+            setBooksItems(googleBooks.items)
+        }
+    },[googleBooks])
+
 
     
     const searchTerms = useRef();
@@ -44,10 +53,10 @@ export default function Explore() {
         }
     }
 
-    const bookItems = googleBooks.items;
+    
 
     const conditionalBookRender = () => {
-        return bookItems !== undefined ? (
+        return bookItems.length > 0 ? (
             <>
             <Button onClick={toggleCollapse}>Series</Button>
             <Collapse isOpen={collapseState}>
@@ -56,6 +65,7 @@ export default function Explore() {
 
             <div className="bookDiv">
                 {bookItems.map((book) => {
+                    console.log(bookItems);
                     return (
                         <GoogleBook key={book.id} book={book}/>
                 )
