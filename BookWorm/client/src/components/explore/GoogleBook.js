@@ -28,8 +28,6 @@ export const GoogleBook = ({book}) => {
         })
     }
 
-    debugger
-
     return (
         <Card className="googleBook">
             {
