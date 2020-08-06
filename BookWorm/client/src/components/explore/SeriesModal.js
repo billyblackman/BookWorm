@@ -4,7 +4,7 @@ import { SeriesContext } from "../../providers/SeriesProvider";
 import { BookContext } from "../../providers/BookProvider";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
 
-export const SeriesModal = ({book, toggle}) => {
+export const SeriesModal = ({ book, toggle }) => {
 
     const { series, getSeries, seriesBooks, getSeriesBooks, addSeriesBook } = useContext(SeriesContext);
     const { addBook, books, getBooks } = useContext(BookContext);
@@ -20,12 +20,12 @@ export const SeriesModal = ({book, toggle}) => {
         getSeries();
     }, [])
 
-    
+
     useEffect(() => {
         if (seriesBooks.length > 0) {
             let idArray = idArrayFunction();
             getSeriesGoogleBooksByIds(idArray)
-            .then(() => setBooksLoaded(true))
+                .then(() => setBooksLoaded(true))
         }
     }, [seriesBooks])
 
@@ -54,15 +54,15 @@ export const SeriesModal = ({book, toggle}) => {
             bookId: bookId
         })
     }
-    
+
     const addWishlistBookToSeries = (seriesId) => {
         addWishlistBookFunction()
-        .then((book) => addBookToSeriesFunction(seriesId, book.id))
+            .then((book) => addBookToSeriesFunction(seriesId, book.id))
     }
 
     const addCollectionBookToSeries = (seriesId) => {
         addCollectionBookFunction()
-        .then((book) => addBookToSeriesFunction(seriesId, book.id))
+            .then((book) => addBookToSeriesFunction(seriesId, book.id))
     }
 
     const seriesRender = () => {
@@ -72,27 +72,28 @@ export const SeriesModal = ({book, toggle}) => {
                 return (
                     <ListGroup>
                         <ListGroupItem key={s.id}>
-                            <ListGroupItemHeading>{s.name}</ListGroupItemHeading>
-                                {matchingBooks.map(b => {
-                                    const matchingGoogleBook = seriesGoogleBooks.find(sgb => sgb.id === b.book.googleId)
-                                    return (
-                                        <ListGroupItemText>{matchingGoogleBook.volumeInfo.title}</ListGroupItemText>
-                                    )
-                                })}
-                                <Button onClick={(click) => {
-                                    click.preventDefault();
-                                    addWishlistBookToSeries(s.id);
-                                    toggle()}}>
-                                        Add wishlist book
+                            <ListGroupItemHeading><h4>{s.name}</h4></ListGroupItemHeading>
+                            {matchingBooks.map(b => {
+                                const matchingGoogleBook = seriesGoogleBooks.find(sgb => sgb.id === b.book.googleId)
+                                return (
+                                    <ListGroupItemText><h6>{matchingGoogleBook.volumeInfo.title}</h6></ListGroupItemText>
+                                )
+                            })}
+                            <Button color="success" onClick={(click) => {
+                                click.preventDefault();
+                                addCollectionBookToSeries(s.id);
+                                toggle()
+                            }}>
+                                Collection
                                 </Button>
-                                <Button onClick={(click) => {
-                                    click.preventDefault();
-                                    addCollectionBookToSeries(s.id);
-                                    toggle()}}>
-                                        Add collection book
+                            <Button color="primary" onClick={(click) => {
+                                click.preventDefault();
+                                addWishlistBookToSeries(s.id);
+                                toggle()
+                            }}>
+                                Wishlist
                                 </Button>
                         </ListGroupItem>
-                        
                     </ListGroup>
                 )
             })
@@ -106,14 +107,16 @@ export const SeriesModal = ({book, toggle}) => {
                                 <Button onClick={(click) => {
                                     click.preventDefault();
                                     addWishlistBookToSeries(s.id);
-                                    toggle()}}>
-                                        Add wishlist book
+                                    toggle()
+                                }}>
+                                    Add wishlist book
                                 </Button>
                                 <Button onClick={(click) => {
                                     click.preventDefault();
                                     addCollectionBookToSeries(s.id);
-                                    toggle()}}>
-                                        Add collection book
+                                    toggle()
+                                }}>
+                                    Add collection book
                                 </Button>
                             </ListGroupItem>
                         )
@@ -126,6 +129,7 @@ export const SeriesModal = ({book, toggle}) => {
     return (
         <>
             <ListGroup>
+                <Button close onClick={toggle} />
                 {seriesRender()}
                 <Button color="danger" onClick={toggle}>Cancel</Button>
             </ListGroup>

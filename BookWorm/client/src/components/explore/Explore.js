@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
-import { Form, FormGroup, Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Collapse, InputGroup, InputGroupAddon, Input, InputGroupButtonDropdown } from "reactstrap";
+import { Button, DropdownItem, DropdownMenu, DropdownToggle, Collapse, InputGroup, InputGroupAddon, InputGroupButtonDropdown } from "reactstrap";
 import "../../styles/book.css"
 import "../../styles/explore.css"
 import { GoogleBook } from "./GoogleBook";
@@ -63,10 +63,7 @@ export default function Explore() {
     const conditionalBookRender = () => {
         return bookItems.length > 0 ? (
             <>
-                <Button onClick={toggleCollapse}>Series</Button>
-                <Collapse isOpen={collapseState}>
-                    <SeriesForm toggle={toggleCollapse} />
-                </Collapse>
+
 
                 <div className="bookDiv">
                     {bookItems.map((book) => {
@@ -84,8 +81,8 @@ export default function Explore() {
 
     return (
         <>
-        <br/>
-            <InputGroup>
+            <br />
+            <InputGroup id="searchFormGroup">
                 <InputGroupButtonDropdown addonType="prepend" toggle={toggle} isOpen={dropdownOpen}>
                     <DropdownToggle caret>
                         Search by {dropdownState}
@@ -117,11 +114,15 @@ export default function Explore() {
                                 </DropdownItem>
                     </DropdownMenu>
                 </InputGroupButtonDropdown>
-                <input className="searchInput" type="text" name="title" placeholder ref={searchTerms} onClick={backgroundClear}></input>
-            <InputGroupAddon addonType="append">
-                <Button color="primary" onClick={search}>Go</Button>
-            </InputGroupAddon>
+                <input className="searchInput" type="text" name="title" ref={searchTerms} onClick={backgroundClear}></input>
+                <InputGroupAddon addonType="append">
+                    <Button color="primary" onClick={search}>Go</Button>
+                </InputGroupAddon>
+            <Button id="seriesButton" onClick={toggleCollapse}>Series</Button>
             </InputGroup>
+            <Collapse isOpen={collapseState}>
+                <SeriesForm toggle={toggleCollapse} />
+            </Collapse>
             {conditionalBookRender()}
         </>
     );

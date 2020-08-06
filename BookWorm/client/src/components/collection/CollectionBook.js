@@ -17,9 +17,8 @@ export const CollectionBook = ({googleBook, book}) => {
     return googleBook.hasOwnProperty("volumeInfo") ? (
         <>
             <Card className="googleBook">
-                <CardImg src={googleBook.volumeInfo.imageLinks.thumbnail} />
                 <CardBody>
-                    <CardTitle>{googleBook.volumeInfo.title}</CardTitle>
+                    <h5><CardTitle>{googleBook.volumeInfo.title}</CardTitle></h5>
                     <CardSubtitle>{googleBook.volumeInfo.subtitle}</CardSubtitle>
                 </CardBody>
                 <Button onClick={addToQueue}>Add to Queue</Button>

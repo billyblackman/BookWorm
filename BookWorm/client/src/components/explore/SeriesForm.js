@@ -16,7 +16,7 @@ export const SeriesForm = ({ toggle }) => {
     }
 
     useEffect(() => {
-            getSeriesBooks()
+        getSeriesBooks()
             .then(idArrayFunction)
             .then((bookIdArray) => getSeriesGoogleBooksByIds(bookIdArray))
             .then(setSeriesBooksLoaded(true));
@@ -49,13 +49,14 @@ export const SeriesForm = ({ toggle }) => {
                     <>
                         <ListGroup key={s.id}>
                             <ListGroupItem>
-                                {s.name}
-                            </ListGroupItem>
-                        </ListGroup>
-                        <Button onClick={(click) => {
+                                <h5>{s.name}</h5>
+                                <Button onClick={(click) => {
                                     click.preventDefault();
                                     addSeriesToQueue(matchingBooks);
-                                    toggle()}}>Add Series to Queue</Button>
+                                    toggle()
+                                }}>Queue Series</Button>
+                            </ListGroupItem>
+                        </ListGroup>
                     </>
                 )
             })

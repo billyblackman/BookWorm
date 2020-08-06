@@ -28,7 +28,8 @@ export default function Stats() {
     return booksLoaded ? (
         <>
             <ListGroup>
-                <ListGroupItemHeading>Stats</ListGroupItemHeading>
+                <ListGroupItemHeading><h4>Stats</h4></ListGroupItemHeading>
+                <br />
                 <ListGroupItem>Total Books: {books.length}</ListGroupItem>
                 <ListGroupItem>Collection: {collectionArray.length}</ListGroupItem>
                 <ListGroupItem>Wishlist: {wishlistArray.length}</ListGroupItem>

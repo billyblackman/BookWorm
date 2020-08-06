@@ -35,25 +35,26 @@ export const GoogleBook = ({ book }) => {
     return (
         <Card className="googleBook">
             <CardBody className="bookBody">
-                <CardTitle>
-                    <h5>
-                        {book.volumeInfo.title}
-                    </h5>
-                </CardTitle>
-                <CardSubtitle>
-                    <h6>
-                        {book.volumeInfo.subtitle}
-                    </h6>
-                </CardSubtitle>
-                <br />
-                {
-                    book.volumeInfo.hasOwnProperty("authors") ?
-                        (
-                            <CardSubtitle>{book.volumeInfo.authors[0]}</CardSubtitle>
-                        ) : (
-                            <></>
-                        )
-                }
+                <div className="detailsImage">
+                    {
+                        book.volumeInfo.hasOwnProperty("imageLinks") ?
+                            (
+                                <>
+                                    <div>
+                                        <CardImg src={book.volumeInfo.imageLinks.thumbnail} />
+                                    </div>
+                                </>
+                            ) : (
+                                <></>
+                            )
+                    }
+                </div>
+                    <div className="coverDetails">
+                        <CardTitle>
+                            <h5>{book.volumeInfo.title} </h5>
+                        </CardTitle>
+                    </div>
+
             </CardBody>
             <Button outline className="detailsButton" onClick={toggleDetailsModal}>
                 <image src="https://www.google.com/intl/en/googlebooks/images/gbs_preview_sticker1.png"></image>
@@ -75,29 +76,29 @@ export const GoogleBook = ({ book }) => {
                             )
                     }
                     <div className="detailsDetails">
-                    <CardTitle>
-                        <h5>{book.volumeInfo.title} </h5>
-                    </CardTitle>
-                    <CardSubtitle>
-                        <h6>{book.volumeInfo.subtitle}</h6>
-                    </CardSubtitle>
-                    {
-                        book.volumeInfo.hasOwnProperty("authors") ?
-                            (
-                                <CardSubtitle>Author: {book.volumeInfo.authors[0]}</CardSubtitle>
-                            ) : (
-                                <></>
-                            )
-                    }
-                    {
-                        book.volumeInfo.hasOwnProperty("publishedDate") ?
-                            (
-                                <CardSubtitle>{(book.volumeInfo.publishedDate).slice(0, 4)} {book.volumeInfo.publisher}</CardSubtitle>
-                            ) : (
-                                <></>
-                            )
-                    }
-                    <CardSubtitle>{book.volumeInfo.pageCount} pages</CardSubtitle>
+                        <CardTitle>
+                            <h5>{book.volumeInfo.title} </h5>
+                        </CardTitle>
+                        <CardSubtitle>
+                            <h6>{book.volumeInfo.subtitle}</h6>
+                        </CardSubtitle>
+                        {
+                            book.volumeInfo.hasOwnProperty("authors") ?
+                                (
+                                    <CardSubtitle>Author: {book.volumeInfo.authors[0]}</CardSubtitle>
+                                ) : (
+                                    <></>
+                                )
+                        }
+                        {
+                            book.volumeInfo.hasOwnProperty("publishedDate") ?
+                                (
+                                    <CardSubtitle>{(book.volumeInfo.publishedDate).slice(0, 4)} {book.volumeInfo.publisher}</CardSubtitle>
+                                ) : (
+                                    <></>
+                                )
+                        }
+                        <CardSubtitle>{book.volumeInfo.pageCount} pages</CardSubtitle>
                     </div>
                 </ModalBody>
             </Modal>

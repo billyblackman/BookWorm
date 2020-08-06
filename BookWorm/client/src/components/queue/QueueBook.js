@@ -38,8 +38,8 @@ export const QueueBook = ({ googleBook, book, books, index }) => {
         <>
             <Card className="queueBook">
                 <CardBody>
-                    <Badge>#{index}</Badge>
-                    <CardTitle>{googleBook.volumeInfo.title}</CardTitle>
+                    <h5><Badge color="primary">#{index}</Badge></h5>
+                    <h5><CardTitle>{googleBook.volumeInfo.title}</CardTitle></h5>
                 </CardBody>
                 {conditionalProgress()}
                 <Collapse isOpen={collapseState}>

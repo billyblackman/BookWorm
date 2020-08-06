@@ -13,3 +13,11 @@
 .searchInputClicked {
     background: none;
 }
+
+#seriesButton {
+    margin-left: 2.7em;
+}
+
+#searchFormGroup {
+    margin-left: 1.85em;
+}
