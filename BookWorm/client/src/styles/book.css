@@ -1,8 +1,10 @@
 .googleBook {
-    width: 20em;
-    height: 40em;
-    padding: 5px;
-    margin: 10px;
+    width: 23em;
+    height: 18em;
+    padding: 3px;
+    margin: 18px;
+    box-shadow: 1px 4px 15px -5px black;
+    background-color: wheat;
 }
 
 .bookDiv {
@@ -13,8 +15,25 @@
     padding: 10px;
 }
 
+.bookBody {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
 .btn {
     margin: 2px;
+}
+
+.detailsButton {
+    height: 40px;
+    background-image: url(https://www.google.com/intl/en/googlebooks/images/gbs_preview_sticker1.png);
+    background-repeat: no-repeat;
+    background-color: white;
+}
+
+.buttonRow {
+    justify-content: space-between;
 }
 
 .highlighted {
@@ -23,4 +42,8 @@
 
 .progressBar {
     margin: 10px 1px 10px 1px;
+}
+
+.columnButton {
+    width: 5px;
 }

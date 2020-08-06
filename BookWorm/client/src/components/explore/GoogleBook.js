@@ -1,12 +1,16 @@
 import React, { useContext, useState } from "react";
-import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Modal } from "reactstrap";
+import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Modal, Popover, UncontrolledPopover, PopoverBody, ModalBody, Row, Col, ButtonGroup } from "reactstrap";
 import { BookContext } from "../../providers/BookProvider";
 import { SeriesModal } from "./SeriesModal";
+import "../../styles/book.css"
 
-export const GoogleBook = ({book}) => {
+export const GoogleBook = ({ book }) => {
 
     const [modal, setModal] = useState(false);
     const toggleModal = () => setModal(!modal);
+
+    const [detailsModal, setDetailsModal] = useState(false);
+    const toggleDetailsModal = () => setDetailsModal(!detailsModal);
 
     const { addBook } = useContext(BookContext);
 
@@ -30,23 +34,73 @@ export const GoogleBook = ({book}) => {
 
     return (
         <Card className="googleBook">
-            {
-                book.volumeInfo.hasOwnProperty("imageLinks") ?
-                (
-                    <CardImg src={book.volumeInfo.imageLinks.thumbnail} />
-                ) : (
-                    <></>
-                )
-            }
-            <CardBody>
-                <CardTitle>{book.volumeInfo.title}</CardTitle>
-                <CardSubtitle>{book.volumeInfo.subtitle}</CardSubtitle>
+            <CardBody className="bookBody">
+                <CardTitle>
+                    <h5>
+                        {book.volumeInfo.title}
+                    </h5>
+                </CardTitle>
+                <CardSubtitle>
+                    <h6>
+                        {book.volumeInfo.subtitle}
+                    </h6>
+                </CardSubtitle>
+                <br />
+                {
+                    book.volumeInfo.hasOwnProperty("authors") ?
+                        (
+                            <CardSubtitle>{book.volumeInfo.authors[0]}</CardSubtitle>
+                        ) : (
+                            <></>
+                        )
+                }
             </CardBody>
-            <Button color="success" onClick={addBookToCollection}>Save to Collection</Button>
-            <Button color="primary" onClick={addBookToWishlist}>Add to Wishlist</Button>
-            <Button color="primary" onClick={toggleModal}>Series</Button>
+            <Button outline className="detailsButton" onClick={toggleDetailsModal}>
+                <image src="https://www.google.com/intl/en/googlebooks/images/gbs_preview_sticker1.png"></image>
+                Details
+            </Button>
+            <Modal isOpen={detailsModal}>
+                <Button close outline onClick={toggleDetailsModal}></Button>
+                <ModalBody>
+                    {
+                        book.volumeInfo.hasOwnProperty("imageLinks") ?
+                            (
+                                <>
+                                    <div className="cardImageDiv">
+                                        <CardImg src={book.volumeInfo.imageLinks.thumbnail} />
+                                    </div>
+                                </>
+                            ) : (
+                                <></>
+                            )
+                    }
+                    <CardTitle>
+                        <h5>{book.volumeInfo.title} </h5>
+                    </CardTitle>
+                    <CardSubtitle>
+                        <h6>{book.volumeInfo.subtitle}</h6>
+                    </CardSubtitle>
+                    <br />
+                    {
+                        book.volumeInfo.hasOwnProperty("authors") ?
+                            (
+                                <CardSubtitle>Author: {book.volumeInfo.authors[0]}</CardSubtitle>
+                            ) : (
+                                <></>
+                            )
+                    }
+                    <br />
+                    <CardSubtitle>{book.volumeInfo.publishedDate} {book.volumeInfo.publisher}</CardSubtitle>
+                </ModalBody>
+            </Modal>
+            <ButtonGroup>
+                <Button className="columnButton" color="success" onClick={addBookToCollection}>Collection</Button>
+                <Button className="columnButton" color="primary" onClick={addBookToWishlist}>Wishlist</Button>
+                <Button className="columnButton" color="secondary" onClick={toggleModal}>Series</Button>
+            </ButtonGroup>
+
             <Modal isOpen={modal}>
-                <SeriesModal book={book} toggle={toggleModal}/>
+                <SeriesModal book={book} toggle={toggleModal} />
             </Modal>
         </Card>
     )

@@ -1,7 +1,8 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
-import { Form, FormGroup, Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Collapse } from "reactstrap";
+import { Form, FormGroup, Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Collapse, InputGroup, InputGroupAddon, Input, InputGroupButtonDropdown } from "reactstrap";
 import "../../styles/book.css"
+import "../../styles/explore.css"
 import { GoogleBook } from "./GoogleBook";
 import { SeriesForm } from "./SeriesForm";
 
@@ -22,17 +23,17 @@ export default function Explore() {
         if (googleBooks.hasOwnProperty("items")) {
             setBooksItems(googleBooks.items)
         }
-    },[googleBooks])
+    }, [googleBooks])
 
 
-    
+
     const searchTerms = useRef();
-    
+
     const search = () => {
-        
+
         const currentSearchTerms = searchTerms.current.value;
         const formattedSearchTerms = currentSearchTerms.replace(/\s+/g, '+')
-        
+
         switch (dropdownState) {
 
             case "Title":
@@ -53,70 +54,70 @@ export default function Explore() {
         }
     }
 
-    
+
 
     const conditionalBookRender = () => {
         return bookItems.length > 0 ? (
             <>
-            <Button onClick={toggleCollapse}>Series</Button>
-            <Collapse isOpen={collapseState}>
-                <SeriesForm toggle={toggleCollapse}/>
-            </Collapse>
+                <Button onClick={toggleCollapse}>Series</Button>
+                <Collapse isOpen={collapseState}>
+                    <SeriesForm toggle={toggleCollapse} />
+                </Collapse>
 
-            <div className="bookDiv">
-                {bookItems.map((book) => {
-                    console.log(bookItems);
-                    return (
-                        <GoogleBook key={book.id} book={book}/>
-                )
-            })}
-            </div>
+                <div className="bookDiv">
+                    {bookItems.map((book) => {
+                        return (
+                            <GoogleBook key={book.id} book={book} />
+                        )
+                    })}
+                </div>
             </>
         ) : (
-            <></>
+                <></>
             )
-            
+
     }
-    
+
     return (
         <>
-            <Form>
-                <FormGroup>
-                        <Dropdown toggle={toggle} isOpen={dropdownOpen}>
-                            <DropdownToggle caret>
-                                Search by {dropdownState}
-                            </DropdownToggle>
-                            <DropdownMenu>
-                            <DropdownItem onClick={(click) => {
-                                    click.preventDefault();
-                                    setDropdownState("Title");
-                                }}>
-                                    Title
+        <br/>
+            <InputGroup>
+                <InputGroupButtonDropdown addonType="prepend" toggle={toggle} isOpen={dropdownOpen}>
+                    <DropdownToggle caret>
+                        Search by {dropdownState}
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem onClick={(click) => {
+                            click.preventDefault();
+                            setDropdownState("Title");
+                        }}>
+                            Title
                                 </DropdownItem>
-                                <DropdownItem onClick={(click) => {
-                                    click.preventDefault();
-                                    setDropdownState("Author");
-                                }}>
-                                    Author
+                        <DropdownItem onClick={(click) => {
+                            click.preventDefault();
+                            setDropdownState("Author");
+                        }}>
+                            Author
                                 </DropdownItem>
-                                <DropdownItem onClick={(click) => {
-                                    click.preventDefault();
-                                    setDropdownState("Publisher");
-                                }}>
-                                    Publisher
+                        <DropdownItem onClick={(click) => {
+                            click.preventDefault();
+                            setDropdownState("Publisher");
+                        }}>
+                            Publisher
                                 </DropdownItem>
-                                <DropdownItem onClick={(click) => {
-                                    click.preventDefault();
-                                    setDropdownState("Category");
-                                }}>
-                                    Category
+                        <DropdownItem onClick={(click) => {
+                            click.preventDefault();
+                            setDropdownState("Category");
+                        }}>
+                            Category
                                 </DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
-                    <input type="text" name="title" ref={searchTerms}></input>
-                </FormGroup>
+                    </DropdownMenu>
+                </InputGroupButtonDropdown>
+                <input className="searchInput" type="text" name="title" placeholder ref={searchTerms}></input>
+            <InputGroupAddon addonType="append">
                 <Button color="primary" onClick={search}>Go</Button>
-            </Form>
+            </InputGroupAddon>
+            </InputGroup>
             {conditionalBookRender()}
         </>
     );

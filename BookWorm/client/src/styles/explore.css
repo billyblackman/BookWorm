@@ -1,0 +1,14 @@
+.searchInput {
+    background: url("https://books.google.com/googlebooks/images/poweredby.png") no-repeat;
+    background-size:contain;
+    background-repeat: no-repeat;
+    text-indent: 20px;
+    height: 38px;
+    width: 10.5em;
+    margin-top: 2px;
+    opacity: .5;
+}
+
+.noBackground {
+    background: none;
+}
