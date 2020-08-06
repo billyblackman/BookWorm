@@ -80,6 +80,8 @@
 .detailsImage:first-child {
     max-height: 7em;
     max-width: 7em;
+    min-height: 5em;
+    min-width: 5em;
     margin: 1em;
 }
 
@@ -98,4 +100,8 @@
 .detailsModal {
     padding: 1em;
     display: flex;
+}
+
+.card-body {
+    overflow: scroll;
 }

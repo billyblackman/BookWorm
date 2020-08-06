@@ -18,7 +18,7 @@ export const WishlistBook = ({googleBook, book}) => {
         <>
             <Card className="wishlistBook">
                 <CardBody>
-                    <CardTitle>{googleBook.volumeInfo.title}</CardTitle>
+                    <h5><CardTitle>{googleBook.volumeInfo.title}</CardTitle></h5>
                     <CardSubtitle>{googleBook.volumeInfo.subtitle}</CardSubtitle>
                 </CardBody>
                 <Button onClick={addToCollection}>Add to Collection</Button>

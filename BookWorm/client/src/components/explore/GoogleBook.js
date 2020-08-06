@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Modal, Popover, UncontrolledPopover, PopoverBody, ModalBody, Row, Col, ButtonGroup } from "reactstrap";
+import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Modal, Popover, UncontrolledPopover, PopoverBody, ModalBody, Row, Col, ButtonGroup, Collapse, UncontrolledCollapse } from "reactstrap";
 import { BookContext } from "../../providers/BookProvider";
 import { SeriesModal } from "./SeriesModal";
 import "../../styles/book.css"
@@ -11,6 +11,9 @@ export const GoogleBook = ({ book }) => {
 
     const [detailsModal, setDetailsModal] = useState(false);
     const toggleDetailsModal = () => setDetailsModal(!detailsModal);
+
+    const [descriptionPopover, setDescriptionPopover] = useState(false);
+    const togglePopover = () => setDescriptionPopover(!descriptionPopover);
 
     const { addBook } = useContext(BookContext);
 
@@ -49,11 +52,11 @@ export const GoogleBook = ({ book }) => {
                             )
                     }
                 </div>
-                    <div className="coverDetails">
-                        <CardTitle>
-                            <h5>{book.volumeInfo.title} </h5>
-                        </CardTitle>
-                    </div>
+                <div className="coverDetails">
+                    <CardTitle>
+                        <h5>{book.volumeInfo.title} </h5>
+                    </CardTitle>
+                </div>
 
             </CardBody>
             <Button outline className="detailsButton" onClick={toggleDetailsModal}>
@@ -99,6 +102,22 @@ export const GoogleBook = ({ book }) => {
                                 )
                         }
                         <CardSubtitle>{book.volumeInfo.pageCount} pages</CardSubtitle>
+                        {
+                            book.volumeInfo.hasOwnProperty("description") ?
+                                (
+                                    <>
+                                        <Button id="Popover1" color="link">Description</Button>
+                                        <Popover placement="left" isOpen={descriptionPopover} target="Popover1" toggle={togglePopover}>
+                                            <PopoverBody>
+                                            <div>{book.volumeInfo.description}</div>
+                                            </PopoverBody>
+                                        </Popover>
+                                        
+                                    </>
+                                ) : (
+                                    <></>
+                                )
+                        }
                     </div>
                 </ModalBody>
             </Modal>
