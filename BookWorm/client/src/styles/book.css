@@ -7,6 +7,24 @@
     background-color: wheat;
 }
 
+.queueBook {
+    width: 13em;
+    height: 16em;
+    padding: 3px;
+    margin: 18px;
+    box-shadow: 1px 4px 15px -5px black;
+    background-color: wheat;
+}
+
+.wishlistBook {
+    width: 23em;
+    height: 18em;
+    padding: 3px;
+    margin: 18px;
+    box-shadow: 1px 4px 15px -5px black;
+    background-color: wheat;
+}
+
 .bookDiv {
     display: flex;
     flex-wrap: wrap;
@@ -41,9 +59,31 @@
 }
 
 .progressBar {
-    margin: 10px 1px 10px 1px;
+    margin: 5px 2px 1.8px;
+    height: 38px;
 }
 
 .columnButton {
     width: 5px;
+}
+
+.detailsModal:first-child {
+    max-height: 15em;
+    max-width: 15em;
+    margin: 1em;
+}
+
+.detailsModal > * {
+    padding: 5px;
+}
+
+.detailsDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.detailsModal {
+    padding: 1em;
+    display: flex;
 }

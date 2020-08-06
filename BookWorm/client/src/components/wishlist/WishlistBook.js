@@ -16,8 +16,7 @@ export const WishlistBook = ({googleBook, book}) => {
 
     return googleBook.hasOwnProperty("volumeInfo") ? (
         <>
-            <Card className="googleBook">
-                <CardImg src={googleBook.volumeInfo.imageLinks.thumbnail} />
+            <Card className="wishlistBook">
                 <CardBody>
                     <CardTitle>{googleBook.volumeInfo.title}</CardTitle>
                     <CardSubtitle>{googleBook.volumeInfo.subtitle}</CardSubtitle>

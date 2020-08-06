@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Progress, Collapse } from "reactstrap";
+import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Progress, Collapse, Badge } from "reactstrap";
 import { BookContext } from "../../providers/BookProvider";
 import { CompletionCollapse } from "./CompletionCollapse";
 import "../../styles/book.css"
 
-export const QueueBook = ({ googleBook, book, books }) => {
+export const QueueBook = ({ googleBook, book, books, index }) => {
 
     const { removeBookFromQueue } = useContext(BookContext);
 
@@ -20,8 +20,8 @@ export const QueueBook = ({ googleBook, book, books }) => {
             if (book.completionPercentage > 0) {
                 return (
                     <>
-                        <Progress className="progressBar" value={book.completionPercentage}>{book.completionPercentage}% Complete</Progress>
-                        <Button onClick={toggleCollapse}>Log progress</Button>
+                        <Progress onClick={toggleCollapse} className="progressBar" value={book.completionPercentage}>{book.completionPercentage}%</Progress>
+                        
                     </>
                 )
             } else {
@@ -36,11 +36,10 @@ export const QueueBook = ({ googleBook, book, books }) => {
 
     return googleBook.hasOwnProperty("volumeInfo") && book !== undefined ? (
         <>
-            <Card className="googleBook">
-                <CardImg src={googleBook.volumeInfo.imageLinks.thumbnail} />
+            <Card className="queueBook">
                 <CardBody>
+                    <Badge>#{index}</Badge>
                     <CardTitle>{googleBook.volumeInfo.title}</CardTitle>
-                    <CardSubtitle>{googleBook.volumeInfo.subtitle}</CardSubtitle>
                 </CardBody>
                 {conditionalProgress()}
                 <Collapse isOpen={collapseState}>

@@ -54,7 +54,11 @@ export default function Explore() {
         }
     }
 
+    //Clears the background from the search bar on click
 
+    function backgroundClear() {
+        searchTerms.current.classList.add("searchInputClicked");
+    }
 
     const conditionalBookRender = () => {
         return bookItems.length > 0 ? (
@@ -113,7 +117,7 @@ export default function Explore() {
                                 </DropdownItem>
                     </DropdownMenu>
                 </InputGroupButtonDropdown>
-                <input className="searchInput" type="text" name="title" placeholder ref={searchTerms}></input>
+                <input className="searchInput" type="text" name="title" placeholder ref={searchTerms} onClick={backgroundClear}></input>
             <InputGroupAddon addonType="append">
                 <Button color="primary" onClick={search}>Go</Button>
             </InputGroupAddon>

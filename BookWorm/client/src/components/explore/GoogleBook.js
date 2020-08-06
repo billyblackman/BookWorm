@@ -61,12 +61,12 @@ export const GoogleBook = ({ book }) => {
             </Button>
             <Modal isOpen={detailsModal}>
                 <Button close outline onClick={toggleDetailsModal}></Button>
-                <ModalBody>
+                <ModalBody className="detailsModal">
                     {
                         book.volumeInfo.hasOwnProperty("imageLinks") ?
                             (
                                 <>
-                                    <div className="cardImageDiv">
+                                    <div>
                                         <CardImg src={book.volumeInfo.imageLinks.thumbnail} />
                                     </div>
                                 </>
@@ -74,13 +74,13 @@ export const GoogleBook = ({ book }) => {
                                 <></>
                             )
                     }
+                    <div className="detailsDetails">
                     <CardTitle>
                         <h5>{book.volumeInfo.title} </h5>
                     </CardTitle>
                     <CardSubtitle>
                         <h6>{book.volumeInfo.subtitle}</h6>
                     </CardSubtitle>
-                    <br />
                     {
                         book.volumeInfo.hasOwnProperty("authors") ?
                             (
@@ -89,8 +89,16 @@ export const GoogleBook = ({ book }) => {
                                 <></>
                             )
                     }
-                    <br />
-                    <CardSubtitle>{book.volumeInfo.publishedDate} {book.volumeInfo.publisher}</CardSubtitle>
+                    {
+                        book.volumeInfo.hasOwnProperty("publishedDate") ?
+                            (
+                                <CardSubtitle>{(book.volumeInfo.publishedDate).slice(0, 4)} {book.volumeInfo.publisher}</CardSubtitle>
+                            ) : (
+                                <></>
+                            )
+                    }
+                    <CardSubtitle>{book.volumeInfo.pageCount} pages</CardSubtitle>
+                    </div>
                 </ModalBody>
             </Modal>
             <ButtonGroup>

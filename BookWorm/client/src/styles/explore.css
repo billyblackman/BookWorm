@@ -1,3 +1,4 @@
+
 .searchInput {
     background: url("https://books.google.com/googlebooks/images/poweredby.png") no-repeat;
     background-size:contain;
@@ -9,6 +10,6 @@
     opacity: .5;
 }
 
-.noBackground {
+.searchInputClicked {
     background: none;
 }

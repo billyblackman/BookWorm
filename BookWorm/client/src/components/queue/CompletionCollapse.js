@@ -9,8 +9,6 @@ export const CompletionCollapse = ({ googleBook, book, toggle }) => {
 
     const currentPage = Math.ceil((book.completionPercentage / 100) * googleBook.volumeInfo.pageCount);
 
-
-
     const placeHolder = () => {
         return `${currentPage}/${googleBook.volumeInfo.pageCount}`
     }
@@ -39,7 +37,7 @@ export const CompletionCollapse = ({ googleBook, book, toggle }) => {
                     <Label for="completionPercentage">Current page</Label>
                     <Input type="number" defaultValue={currentPage} placeholder={placeHolder()} onChange={handleControlledInputChange} />
                 </FormGroup>
-                <Button onClick={(e) => {
+                <Button color="primary" onClick={(e) => {
                     e.preventDefault();
                     editBookOnClick();
                 }}>Save Progress</Button>

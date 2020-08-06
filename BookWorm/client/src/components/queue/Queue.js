@@ -36,8 +36,9 @@ export default function Queue() {
             <div className="bookDiv">
                 {googleBooks.map((googleBook) => {
                     const book = books.find(b => b.googleId === googleBook.id) || {}
+                    const index = googleBooks.indexOf(googleBook) + 1
                     return (
-                        <QueueBook key={book.id} books={books} book={book} googleBook={googleBook} />
+                        <QueueBook key={book.id} books={books} index={index} book={book} googleBook={googleBook} />
                     )
                 })}
             </div>
