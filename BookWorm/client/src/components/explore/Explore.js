@@ -5,6 +5,7 @@ import "../../styles/book.css"
 import "../../styles/explore.css"
 import { GoogleBook } from "./GoogleBook";
 import { SeriesForm } from "./SeriesForm";
+import { Paginator } from "./Paginator";
 
 export default function Explore() {
 
@@ -17,6 +18,8 @@ export default function Explore() {
     const [collapseState, setCollapseState] = useState(false);
     const toggleCollapse = () => setCollapseState(!collapseState);
 
+    const [startIndex, setStartIndex] = useState(0);
+
     const [bookItems, setBooksItems] = useState([]);
 
     useEffect(() => {
@@ -24,6 +27,10 @@ export default function Explore() {
             setBooksItems(googleBooks.items)
         }
     }, [googleBooks])
+
+    useEffect(() => {
+        search(formattedSearchTerms, startIndex)
+    }, [startIndex])
 
 
 
@@ -37,19 +44,19 @@ export default function Explore() {
         switch (dropdownState) {
 
             case "Title":
-                searchByTitle(formattedSearchTerms)
+                searchByTitle(formattedSearchTerms, startIndex)
                 break;
 
             case "Author":
-                searchByAuthor(formattedSearchTerms)
+                searchByAuthor(formattedSearchTerms, startIndex)
                 break;
 
             case "Publisher":
-                searchByPublisher(formattedSearchTerms)
+                searchByPublisher(formattedSearchTerms, startIndex)
                 break;
 
             case "Category":
-                searchByCategory(formattedSearchTerms)
+                searchByCategory(formattedSearchTerms, startIndex)
                 break;
         }
     }
@@ -63,8 +70,6 @@ export default function Explore() {
     const conditionalBookRender = () => {
         return bookItems.length > 0 ? (
             <>
-
-
                 <div className="bookDiv">
                     {bookItems.map((book) => {
                         return (
@@ -123,6 +128,7 @@ export default function Explore() {
             <Collapse isOpen={collapseState}>
                 <SeriesForm toggle={toggleCollapse} />
             </Collapse>
+            <Paginator setStartIndex={setStartIndex}/>
             {conditionalBookRender()}
         </>
     );

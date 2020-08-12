@@ -10,28 +10,28 @@ export const GoogleBookProvider = (props) => {
     const [seriesGoogleBooks, setSeriesGoogleBooks] = useState([]);
     const [googleBook, setGoogleBook] = useState({volumeInfo: {imageLinks: {}}});
 
-    const searchByTitle = (searchTerms) => {
-        return fetch(`${apiUrl}?q=${searchTerms}&maxResults=40`)
+    const searchByTitle = (searchTerms, startIndex) => {
+        return fetch(`${apiUrl}?q=${searchTerms}&maxResults=20&startIndex=${startIndex}`)
             .then((response) => response.json())
             .then(setGoogleBooks);
     }
 
-    const searchByAuthor = (searchTerms) => {
-      return fetch(`${apiUrl}?q=inauthor:${searchTerms}&maxResults=40`)
+    const searchByAuthor = (searchTerms, startIndex) => {
+      return fetch(`${apiUrl}?q=inauthor:${searchTerms}&maxResults=20&startIndex=${startIndex}`)
           .then((response) => response.json())
           .then(setGoogleBooks);
     }
 
     //Max results allowed in publisher search seems to be 35 rather than 40
 
-    const searchByPublisher = (searchTerms) => {
-      return fetch(`${apiUrl}?q=inpublisher:${searchTerms}&maxResults=35`)
+    const searchByPublisher = (searchTerms, startIndex) => {
+      return fetch(`${apiUrl}?q=inpublisher:${searchTerms}&maxResults=20&startIndex=${startIndex}`)
           .then((response) => response.json())
           .then(setGoogleBooks);
     }
 
-    const searchByCategory = (searchTerms) => {
-      return fetch(`${apiUrl}?q=insubject:${searchTerms}&maxResults=40`)
+    const searchByCategory = (searchTerms, startIndex) => {
+      return fetch(`${apiUrl}?q=insubject:${searchTerms}&maxResults=20&startIndex=${startIndex}`)
           .then((response) => response.json())
           .then(setGoogleBooks);
     }
