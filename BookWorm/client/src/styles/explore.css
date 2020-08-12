@@ -21,3 +21,9 @@
 #searchFormGroup {
     margin-left: 1.85em;
 }
+
+.block {
+    display: block;
+    padding-left: 38px;
+    padding-top: 20px;
+}

@@ -70,15 +70,15 @@ export default function Explore() {
     const conditionalBookRender = () => {
         return bookItems.length > 0 ? (
             <>
+                <Paginator setStartIndex={setStartIndex} />
                 <div className="bookDiv">
-                    <Paginator setStartIndex={setStartIndex}/>
                     {bookItems.map((book) => {
                         return (
                             <GoogleBook key={book.id} book={book} />
                         )
                     })}
-                    <Paginator setStartIndex={setStartIndex}/>
                 </div>
+                <Paginator setStartIndex={setStartIndex} />
             </>
         ) : (
                 <></>
@@ -125,12 +125,11 @@ export default function Explore() {
                 <InputGroupAddon addonType="append">
                     <Button color="primary" onClick={search}>Go</Button>
                 </InputGroupAddon>
-            <Button id="seriesButton" onClick={toggleCollapse}>Series</Button>
+                <Button id="seriesButton" onClick={toggleCollapse}>Series</Button>
             </InputGroup>
             <Collapse isOpen={collapseState}>
                 <SeriesForm toggle={toggleCollapse} />
             </Collapse>
-            <Paginator setStartIndex={setStartIndex}/>
             {conditionalBookRender()}
         </>
     );
