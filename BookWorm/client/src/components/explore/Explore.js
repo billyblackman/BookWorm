@@ -29,7 +29,7 @@ export default function Explore() {
     }, [googleBooks])
 
     useEffect(() => {
-        search(formattedSearchTerms, startIndex)
+        search()
     }, [startIndex])
 
 
@@ -71,11 +71,13 @@ export default function Explore() {
         return bookItems.length > 0 ? (
             <>
                 <div className="bookDiv">
+                    <Paginator setStartIndex={setStartIndex}/>
                     {bookItems.map((book) => {
                         return (
                             <GoogleBook key={book.id} book={book} />
                         )
                     })}
+                    <Paginator setStartIndex={setStartIndex}/>
                 </div>
             </>
         ) : (
