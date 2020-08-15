@@ -6,10 +6,12 @@ import "../../styles/explore.css"
 import { GoogleBook } from "./GoogleBook";
 import { SeriesForm } from "./SeriesForm";
 import { Paginator } from "./Paginator";
+import { BookContext } from "../../providers/BookProvider";
 
 export default function Explore() {
 
     const { googleBooks, searchByTitle, searchByAuthor, searchByPublisher, searchByCategory } = useContext(GoogleBookContext);
+    const { getBooks, books } = useContext(BookContext);
     const [dropdownState, setDropdownState] = useState("Title");
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -31,6 +33,10 @@ export default function Explore() {
     useEffect(() => {
         search()
     }, [startIndex])
+
+    useEffect(() => {
+        getBooks();
+    }, [])
 
 
 
@@ -73,8 +79,12 @@ export default function Explore() {
                 <Paginator setStartIndex={setStartIndex} />
                 <div className="bookDiv">
                     {bookItems.map((book) => {
-                        return (
+                        debugger
+                        const matchingBook = books.find(b => b.googleId === book.id)
+                        return matchingBook === undefined ? (
                             <GoogleBook key={book.id} book={book} />
+                        ) : (
+                            <></>
                         )
                     })}
                 </div>
