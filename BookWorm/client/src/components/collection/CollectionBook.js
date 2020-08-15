@@ -21,7 +21,13 @@ export const CollectionBook = ({googleBook, book}) => {
                     <h5><CardTitle>{googleBook.volumeInfo.title}</CardTitle></h5>
                     <CardSubtitle>{googleBook.volumeInfo.subtitle}</CardSubtitle>
                 </CardBody>
-                <Button onClick={addToQueue}>Add to Queue</Button>
+                {
+                    book.queuePosition > 0 ? (
+                        <Button disabled color="success">Queued</Button>
+                    ) : (
+                        <Button onClick={addToQueue}>Add to Queue</Button>
+                    )
+                }
                 <Button color="danger" onClick={deleteBookFromCollection}>Delete</Button>
             </Card>
         </>

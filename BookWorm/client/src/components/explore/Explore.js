@@ -79,7 +79,6 @@ export default function Explore() {
                 <Paginator setStartIndex={setStartIndex} />
                 <div className="bookDiv">
                     {bookItems.map((book) => {
-                        debugger
                         const matchingBook = books.find(b => b.googleId === book.id)
                         return matchingBook === undefined ? (
                             <GoogleBook key={book.id} book={book} />
