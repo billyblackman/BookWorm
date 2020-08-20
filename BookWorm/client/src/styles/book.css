@@ -3,8 +3,8 @@
     height: 21em;
     padding: 3px;
     margin: 18px;
-    box-shadow: 1px 4px 15px -5px black;
-    background-color: wheat;
+    box-shadow: 1px 0px 10px -5px black;
+    background-color: cornsilk;
 }
 
 .queueBook {
@@ -12,8 +12,8 @@
     height: 16em;
     padding: 3px;
     margin: 18px;
-    box-shadow: 1px 4px 15px -5px black;
-    background-color: wheat;
+    box-shadow: 1px 0px 10px -5px black;
+    background-color: cornsilk;
 }
 
 .wishlistBook {
@@ -21,8 +21,8 @@
     height: 18em;
     padding: 3px;
     margin: 18px;
-    box-shadow: 1px 4px 15px -5px black;
-    background-color: wheat;
+    box-shadow: 1px 0px 10px -5px black;
+    background-color: cornsilk;
 }
 
 .bookDiv {
@@ -103,5 +103,5 @@
 }
 
 .card-body {
-    overflow: scroll;
+    overflow-y: scroll;
 }

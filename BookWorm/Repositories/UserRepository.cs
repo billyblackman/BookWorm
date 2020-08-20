@@ -1,10 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using BookWorm.Data;
+﻿using BookWorm.Data;
 using BookWorm.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BookWorm.Repositories
 {

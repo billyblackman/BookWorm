@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BookWorm.Data;
+﻿using BookWorm.Data;
 using BookWorm.Models;
 using BookWorm.Repositories;
 using Microsoft.AspNetCore.Authorization;
