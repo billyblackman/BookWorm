@@ -1,8 +1,9 @@
 import React, { useRef, useContext, useEffect, useState } from "react";
-import { Form, Button, FormGroup, Input, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from "reactstrap";
+import { Form, Button, FormGroup, Input, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Modal } from "reactstrap";
 import { SeriesContext } from "../../providers/SeriesProvider";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
 import { BookContext } from "../../providers/BookProvider";
+import { SeriesDeleteModal } from "./SeriesDeleteModal";
 
 export const SeriesForm = ({ toggle }) => {
 
@@ -55,13 +56,12 @@ export const SeriesForm = ({ toggle }) => {
                                     addSeriesToQueue(matchingBooks);
                                     toggle()
                                 }}>Queue Series</Button>
-                                <Button color="danger" onClick={(click) => {
-                                    click.preventDefault();
-                                    deleteSeries(s.id);
-                                    toggle()
-                                }}>Delete Series</Button>
+                                <Button color="danger" onClick={}>Delete Series</Button>
                             </ListGroupItem>
                         </ListGroup>
+                        <Modal>
+                            <SeriesDeleteModal seriesId={s.id}/>
+                        </Modal>
                     </>
                 )
             })
