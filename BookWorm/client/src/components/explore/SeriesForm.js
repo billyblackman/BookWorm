@@ -1,5 +1,5 @@
 import React, { useRef, useContext, useEffect, useState } from "react";
-import { Form, Button, FormGroup, Input, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Modal } from "reactstrap";
+import { Form, Button, FormGroup, Input, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Modal, Badge } from "reactstrap";
 import { SeriesContext } from "../../providers/SeriesProvider";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
 import { BookContext } from "../../providers/BookProvider";
@@ -11,6 +11,8 @@ export const SeriesForm = ({ toggle }) => {
     const { getSeriesGoogleBooksByIds, seriesGoogleBooks } = useContext(GoogleBookContext);
     const { addBookToQueue } = useContext(BookContext);
     const [seriesBooksLoaded, setSeriesBooksLoaded] = useState(false);
+    const [deleteSeriesModal, setDeleteSeriesModal] = useState(false);
+    const toggleDeleteSeriesModal = () => setDeleteSeriesModal(!deleteSeriesModal);
 
     const idArrayFunction = () => {
         return seriesBooks.map((sb) => sb.book.googleId)
@@ -42,6 +44,8 @@ export const SeriesForm = ({ toggle }) => {
         });
     }
 
+    debugger
+
     const seriesRender = () => {
         if (series.length > 0 && seriesBooks.length > 0) {
             return series.map(s => {
@@ -50,17 +54,24 @@ export const SeriesForm = ({ toggle }) => {
                     <>
                         <ListGroup key={s.id}>
                             <ListGroupItem>
-                                <h5>{s.name}</h5>
-                                <Button onClick={(click) => {
-                                    click.preventDefault();
-                                    addSeriesToQueue(matchingBooks);
-                                    toggle()
-                                }}>Queue Series</Button>
-                                <Button color="danger" onClick={}>Delete Series</Button>
+                                <h5>{s.name} <Badge>{matchingBooks.length}</Badge></h5>
+                                <Button color="danger" onClick={toggleDeleteSeriesModal}>Delete Series</Button>
+                                {
+                                    matchingBooks.length > 0 ? (
+
+                                        <Button onClick={(click) => {
+                                            click.preventDefault();
+                                            addSeriesToQueue(matchingBooks);
+                                            toggle()
+                                        }}>Queue Series</Button>
+                                    ) : (
+                                        <></>
+                                    )
+                                }
                             </ListGroupItem>
                         </ListGroup>
-                        <Modal>
-                            <SeriesDeleteModal seriesId={s.id}/>
+                        <Modal isOpen={deleteSeriesModal}>
+                            <SeriesDeleteModal toggle={toggleDeleteSeriesModal} seriesId={s.id}/>
                         </Modal>
                     </>
                 )
@@ -85,6 +96,7 @@ export const SeriesForm = ({ toggle }) => {
         }
     }
 
+   
     return (
         <>
             <Form>
