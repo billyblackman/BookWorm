@@ -6,7 +6,7 @@ import { BookContext } from "../../providers/BookProvider";
 
 export const SeriesForm = ({ toggle }) => {
 
-    const { addSeries, series, getSeries, seriesBooks, getSeriesBooks } = useContext(SeriesContext);
+    const { addSeries, series, getSeries, seriesBooks, getSeriesBooks, deleteSeries } = useContext(SeriesContext);
     const { getSeriesGoogleBooksByIds, seriesGoogleBooks } = useContext(GoogleBookContext);
     const { addBookToQueue } = useContext(BookContext);
     const [seriesBooksLoaded, setSeriesBooksLoaded] = useState(false);
@@ -55,6 +55,11 @@ export const SeriesForm = ({ toggle }) => {
                                     addSeriesToQueue(matchingBooks);
                                     toggle()
                                 }}>Queue Series</Button>
+                                <Button color="danger" onClick={(click) => {
+                                    click.preventDefault();
+                                    deleteSeries(s.id);
+                                    toggle()
+                                }}>Delete Series</Button>
                             </ListGroupItem>
                         </ListGroup>
                     </>
@@ -67,6 +72,11 @@ export const SeriesForm = ({ toggle }) => {
                         return (
                             <ListGroupItem>
                                 <ListGroupItemHeading>{s.name}</ListGroupItemHeading>
+                                <Button color="danger" onClick={(click) => {
+                                    click.preventDefault();
+                                    deleteSeries(s.id);
+                                    toggle()
+                                }}>Delete Series</Button>
                             </ListGroupItem>
                         )
                     })}

@@ -23,5 +23,18 @@ namespace BookWorm.Repositories
             _context.Add(series);
             _context.SaveChanges();
         }
+
+        public Series GetById(int id, int userId)
+        {
+            return _context.Series
+                            .FirstOrDefault(s => s.Id == id && s.UserId == userId);
+        }
+
+        public void DeleteById(int id, int userId)
+        {
+            var series = GetById(id, userId);
+            _context.Series.Remove(series);
+            _context.SaveChanges();
+        }
     }
 }

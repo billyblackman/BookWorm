@@ -37,6 +37,15 @@ namespace BookWorm.Controllers
             return CreatedAtAction("Get", new { id = series.Id }, series);
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var currentUser = GetCurrentUser();
+
+            _seriesRepository.DeleteById(id, currentUser.Id);
+            return NoContent();
+        }
+
         private User GetCurrentUser()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

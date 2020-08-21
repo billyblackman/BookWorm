@@ -50,6 +50,22 @@ export const SeriesProvider = (props) => {
             }).then(getSeries)
         );
 
+    const deleteSeries = (id) =>
+        getToken().then((token) =>
+          fetch(`/api/series/${id}`, {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }).then((resp) => {
+            if (resp.ok) {
+              getSeries();
+            } else {
+              throw new Error("Unauthorized");
+            }
+          })
+        );
+
     const addSeriesBook = (seriesBook) =>
         getToken().then((token) =>
             fetch("/api/seriesBook", {
@@ -69,6 +85,7 @@ export const SeriesProvider = (props) => {
                 seriesBooks,
                 getSeries,
                 getSeriesBooks,
+                deleteSeries,
                 addSeries,
                 addSeriesBook
             }}
