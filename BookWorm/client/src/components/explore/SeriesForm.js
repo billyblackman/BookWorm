@@ -1,15 +1,14 @@
 import React, { useRef, useContext, useEffect, useState } from "react";
-import { Form, Button, FormGroup, Input, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Modal, Badge } from "reactstrap";
+import { Form, Button, FormGroup, Input, ListGroup, ListGroupItem, ListGroupItemHeading, Modal, Badge, ModalBody, Spinner, Collapse, Card } from "reactstrap";
 import { SeriesContext } from "../../providers/SeriesProvider";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
 import { BookContext } from "../../providers/BookProvider";
-import { SeriesDeleteModal } from "./SeriesDeleteModal";
 
 export const SeriesForm = ({ toggle }) => {
 
     const { addSeries, series, getSeries, seriesBooks, getSeriesBooks, deleteSeries } = useContext(SeriesContext);
     const { getSeriesGoogleBooksByIds, seriesGoogleBooks } = useContext(GoogleBookContext);
-    const { addBookToQueue } = useContext(BookContext);
+    const { addBookToQueue, deleteBook } = useContext(BookContext);
     const [seriesBooksLoaded, setSeriesBooksLoaded] = useState(false);
     const [deleteSeriesModal, setDeleteSeriesModal] = useState(false);
     const toggleDeleteSeriesModal = () => setDeleteSeriesModal(!deleteSeriesModal);
@@ -44,59 +43,69 @@ export const SeriesForm = ({ toggle }) => {
         });
     }
 
-    debugger
+    const deleteSeriesBooks = (matchingBooks, seriesId) => {
+        debugger
+        deleteSeries(seriesId);
+        matchingBooks.map(b => deleteBook(b.bookId));
+        toggleDeleteSeriesModal();
+
+    }
 
     const seriesRender = () => {
-        if (series.length > 0 && seriesBooks.length > 0) {
+        if (seriesBooksLoaded) {
             return series.map(s => {
                 const matchingBooks = seriesBooks.filter(sb => sb.seriesId === s.id)
                 return (
                     <>
-                        <ListGroup key={s.id}>
-                            <ListGroupItem>
+                        <ListGroup>
+                            <ListGroupItem key={s.id}>
                                 <h5>{s.name} <Badge>{matchingBooks.length}</Badge></h5>
-                                <Button color="danger" onClick={toggleDeleteSeriesModal}>Delete Series</Button>
                                 {
                                     matchingBooks.length > 0 ? (
-
+                                        <>
+                                            <Button color="danger" onClick={toggleDeleteSeriesModal}>Delete Series</Button>
+                                            <Button onClick={(click) => {
+                                                click.preventDefault();
+                                                addSeriesToQueue(matchingBooks);
+                                                toggle();
+                                            }}>Queue Series</Button>
+                                        </>
+                                    ) : (
+                                            <Button color="danger" onClick={(click) => {
+                                                click.preventDefault();
+                                                deleteSeries(s.id);
+                                                toggle();
+                                            }}>Delete Series</Button>
+                                        )
+                                }
+                                <Collapse isOpen={deleteSeriesModal}>
+                                    <Card>
+                                        Do you want to delete the books in this series?
                                         <Button onClick={(click) => {
                                             click.preventDefault();
-                                            addSeriesToQueue(matchingBooks);
-                                            toggle()
-                                        }}>Queue Series</Button>
-                                    ) : (
-                                        <></>
-                                    )
-                                }
+                                            deleteSeriesBooks(matchingBooks, s.id);
+                                            toggle();
+                                        }}>Yes</Button>
+                                        <Button onClick={(click) => {
+                                            click.preventDefault();
+                                            deleteSeries(s.id);
+                                            toggle();
+                                        }}>No, just the series</Button>
+                                        <Button onClick={toggleDeleteSeriesModal}>Cancel</Button>
+                                    </Card>
+                                </Collapse>
                             </ListGroupItem>
                         </ListGroup>
-                        <Modal isOpen={deleteSeriesModal}>
-                            <SeriesDeleteModal toggle={toggleDeleteSeriesModal} seriesId={s.id}/>
-                        </Modal>
                     </>
                 )
             })
         } else {
             return (
-                <ListGroup>
-                    {series.map(s => {
-                        return (
-                            <ListGroupItem>
-                                <ListGroupItemHeading>{s.name}</ListGroupItemHeading>
-                                <Button color="danger" onClick={(click) => {
-                                    click.preventDefault();
-                                    deleteSeries(s.id);
-                                    toggle()
-                                }}>Delete Series</Button>
-                            </ListGroupItem>
-                        )
-                    })}
-                </ListGroup>
+                <Spinner />
             )
         }
     }
 
-   
     return (
         <>
             <Form>
