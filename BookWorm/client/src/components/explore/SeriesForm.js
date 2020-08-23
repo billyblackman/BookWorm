@@ -10,8 +10,6 @@ export const SeriesForm = ({ toggle }) => {
     const { getSeriesGoogleBooksByIds, seriesGoogleBooks } = useContext(GoogleBookContext);
     const { addBookToQueue, deleteBook } = useContext(BookContext);
     const [seriesBooksLoaded, setSeriesBooksLoaded] = useState(false);
-    const [deleteSeriesModal, setDeleteSeriesModal] = useState(false);
-    const toggleDeleteSeriesModal = () => setDeleteSeriesModal(!deleteSeriesModal);
 
     const idArrayFunction = () => {
         return seriesBooks.map((sb) => sb.book.googleId)
@@ -44,10 +42,8 @@ export const SeriesForm = ({ toggle }) => {
     }
 
     const deleteSeriesBooks = (matchingBooks, seriesId) => {
-        debugger
         deleteSeries(seriesId);
         matchingBooks.map(b => deleteBook(b.bookId));
-        toggleDeleteSeriesModal();
 
     }
 
@@ -63,7 +59,16 @@ export const SeriesForm = ({ toggle }) => {
                                 {
                                     matchingBooks.length > 0 ? (
                                         <>
-                                            <Button color="danger" onClick={toggleDeleteSeriesModal}>Delete Series</Button>
+                                            <Button color="danger" onClick={(click) => {
+                                                click.preventDefault();
+                                                deleteSeries(s.id);
+                                                toggle();
+                                            }}>Delete Series</Button>
+                                            <Button color="danger" onClick={(click) => {
+                                                click.preventDefault();
+                                                deleteSeriesBooks(matchingBooks, s.id);
+                                                toggle();
+                                            }}>Delete Series and Books</Button>
                                             <Button onClick={(click) => {
                                                 click.preventDefault();
                                                 addSeriesToQueue(matchingBooks);
@@ -78,22 +83,6 @@ export const SeriesForm = ({ toggle }) => {
                                             }}>Delete Series</Button>
                                         )
                                 }
-                                <Collapse isOpen={deleteSeriesModal}>
-                                    <Card>
-                                        Do you want to delete the books in this series?
-                                        <Button onClick={(click) => {
-                                            click.preventDefault();
-                                            deleteSeriesBooks(matchingBooks, s.id);
-                                            toggle();
-                                        }}>Yes</Button>
-                                        <Button onClick={(click) => {
-                                            click.preventDefault();
-                                            deleteSeries(s.id);
-                                            toggle();
-                                        }}>No, just the series</Button>
-                                        <Button onClick={toggleDeleteSeriesModal}>Cancel</Button>
-                                    </Card>
-                                </Collapse>
                             </ListGroupItem>
                         </ListGroup>
                     </>

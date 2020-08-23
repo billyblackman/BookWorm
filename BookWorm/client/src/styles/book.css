@@ -105,3 +105,15 @@
 .card-body {
     overflow-y: scroll;
 }
+
+.media {
+    align-items: center;
+}
+
+.media > * {
+    padding: 5px;
+}
+
+.redButton {
+    color: rgb(219, 127, 145);
+}

@@ -38,24 +38,18 @@ export const GoogleBook = ({ book }) => {
     return (
         <Card className="googleBook">
             <CardBody className="bookBody">
-                <div className="detailsImage">
+                <div className="media">
                     {
                         book.volumeInfo.hasOwnProperty("imageLinks") ?
                             (
-                                <>
-                                    <div>
-                                        <CardImg src={book.volumeInfo.imageLinks.thumbnail} />
-                                    </div>
-                                </>
+                                <img src={book.volumeInfo.imageLinks.thumbnail} />
                             ) : (
                                 <></>
                             )
                     }
-                </div>
-                <div className="coverDetails">
-                    <CardTitle>
-                        <h5>{book.volumeInfo.title} </h5>
-                    </CardTitle>
+                    <div className="media-body">
+                        <h5><CardTitle>{book.volumeInfo.title}</CardTitle></h5>
+                    </div>
                 </div>
 
             </CardBody>
@@ -109,10 +103,10 @@ export const GoogleBook = ({ book }) => {
                                         <Button id="Popover1" color="link">Description</Button>
                                         <Popover placement="left" isOpen={descriptionPopover} target="Popover1" toggle={togglePopover}>
                                             <PopoverBody>
-                                            <div>{book.volumeInfo.description}</div>
+                                                <div>{book.volumeInfo.description}</div>
                                             </PopoverBody>
                                         </Popover>
-                                        
+
                                     </>
                                 ) : (
                                     <></>

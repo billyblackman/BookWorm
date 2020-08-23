@@ -22,13 +22,10 @@ export default function Header() {
         <NavbarBrand tag={RRNavLink} to="/">BookWorm</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
+          <Nav className="mr-auto" navbar tabs>
             { /* When isLoggedIn === true, we will render the Home link */}
             {isLoggedIn &&
               <>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/">Home</NavLink>
-                </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/explore">Explore</NavLink>
                 </NavItem>
