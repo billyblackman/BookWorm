@@ -21,13 +21,13 @@ export const QueueBook = ({ googleBook, book, books, index }) => {
             if (book.completionPercentage > 0) {
                 return (
                     <>
-                        <Progress onClick={toggleCollapse} className="progressBar" value={book.completionPercentage}>{book.completionPercentage}%</Progress>
+                        <Progress animated onClick={toggleCollapse} className="progressBar" value={book.completionPercentage}>{book.completionPercentage}%</Progress>
                         
                     </>
                 )
             } else {
                 return (
-                    <Button onClick={toggleCollapse}>Start Book</Button>
+                    <Button className="blueHighlight" onClick={toggleCollapse}>Start Book</Button>
                 )
             }
         } else {
@@ -39,7 +39,7 @@ export const QueueBook = ({ googleBook, book, books, index }) => {
         <>
             <Card className="queueBook">
                 <CardBody>
-                    <h5><Badge color="primary">#{index}</Badge></h5>
+                    <h5><Badge className="blue blueHighlight">#{index}</Badge></h5>
                     <h5><CardTitle>{googleBook.volumeInfo.title}</CardTitle></h5>
                 </CardBody>
                 {conditionalProgress()}

@@ -57,6 +57,7 @@
 .progressBar {
     margin: 5px 2px 1.8px;
     height: 38px;
+    color: rgba(45, 89, 155, 0.788);
 }
 
 .columnButton {

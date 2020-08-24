@@ -80,14 +80,14 @@ export const SeriesModal = ({ book, toggle }) => {
                                     <ListGroupItemText><h6>{matchingGoogleBook.volumeInfo.title}</h6></ListGroupItemText>
                                 )
                             })}
-                            <Button color="success" onClick={(click) => {
+                            <Button className="green greenHighlight" onClick={(click) => {
                                 click.preventDefault();
                                 addCollectionBookToSeries(s.id);
                                 toggle()
                             }}>
                                 Collection
                                 </Button>
-                            <Button color="primary" onClick={(click) => {
+                            <Button className="blue blueHighlight" onClick={(click) => {
                                 click.preventDefault();
                                 addWishlistBookToSeries(s.id);
                                 toggle()

@@ -115,10 +115,10 @@ export const GoogleBook = ({ book }) => {
                     </div>
                 </ModalBody>
             </Modal>
-            <ButtonGroup>
-                <Button className="columnButton" color="success" onClick={addBookToCollection}>Collection</Button>
-                <Button className="columnButton" color="primary" onClick={addBookToWishlist}>Wishlist</Button>
-                <Button className="columnButton" color="secondary" onClick={toggleModal}>Series</Button>
+            <ButtonGroup className="buttonRow">
+                <Button className="green greenHighlight columnButton" onClick={addBookToCollection}>Collection</Button>
+                <Button className="blue blueHighlight columnButton" onClick={addBookToWishlist}>Wishlist</Button>
+                <Button color="secondary columnButton" onClick={toggleModal}>Series</Button>
             </ButtonGroup>
 
             <Modal isOpen={modal}>

@@ -132,7 +132,7 @@ export default function Explore() {
                 </InputGroupButtonDropdown>
                 <input className="searchInput" type="text" name="title" ref={searchTerms} onClick={backgroundClear}></input>
                 <InputGroupAddon addonType="append">
-                    <Button color="primary" onClick={search}>Go</Button>
+                    <Button className="blue blueHighlight" onClick={search}>Go</Button>
                 </InputGroupAddon>
                 <Button id="seriesButton" onClick={toggleCollapse}>Series</Button>
             </InputGroup>

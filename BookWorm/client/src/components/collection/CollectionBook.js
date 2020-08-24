@@ -30,9 +30,9 @@ export const CollectionBook = ({ googleBook, book }) => {
                 </CardBody>
                 {
                     book.queuePosition > 0 ? (
-                        <Button disabled color="success">Queued</Button>
+                        <Button disabled className="green">Queued</Button>
                     ) : (
-                            <Button onClick={addToQueue}>Add to Queue</Button>
+                            <Button className="greenHighlight" onClick={addToQueue}>Add to Queue</Button>
                         )
                 }
                 <Button className="redButton" onClick={deleteBookFromCollection}>Delete</Button>
