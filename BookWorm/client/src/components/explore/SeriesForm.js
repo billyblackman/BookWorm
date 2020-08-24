@@ -3,6 +3,7 @@ import { Form, Button, FormGroup, Input, ListGroup, ListGroupItem, ListGroupItem
 import { SeriesContext } from "../../providers/SeriesProvider";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
 import { BookContext } from "../../providers/BookProvider";
+import "../../styles/button.css"
 
 export const SeriesForm = ({ toggle }) => {
 
@@ -59,12 +60,12 @@ export const SeriesForm = ({ toggle }) => {
                                 {
                                     matchingBooks.length > 0 ? (
                                         <>
-                                            <Button color="danger" onClick={(click) => {
+                                            <Button className="redButton" onClick={(click) => {
                                                 click.preventDefault();
                                                 deleteSeries(s.id);
                                                 toggle();
                                             }}>Delete Series</Button>
-                                            <Button color="danger" onClick={(click) => {
+                                            <Button className="redButton" onClick={(click) => {
                                                 click.preventDefault();
                                                 deleteSeriesBooks(matchingBooks, s.id);
                                                 toggle();
@@ -76,7 +77,7 @@ export const SeriesForm = ({ toggle }) => {
                                             }}>Queue Series</Button>
                                         </>
                                     ) : (
-                                            <Button color="danger" onClick={(click) => {
+                                            <Button className="redButton" onClick={(click) => {
                                                 click.preventDefault();
                                                 deleteSeries(s.id);
                                                 toggle();

@@ -3,6 +3,7 @@ import { Button, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemTe
 import { SeriesContext } from "../../providers/SeriesProvider";
 import { BookContext } from "../../providers/BookProvider";
 import { GoogleBookContext } from "../../providers/GoogleBookProvider";
+import "../../styles/button.css"
 
 export const SeriesModal = ({ book, toggle }) => {
 
@@ -131,7 +132,7 @@ export const SeriesModal = ({ book, toggle }) => {
             <ListGroup>
                 <Button close onClick={toggle} />
                 {seriesRender()}
-                <Button color="danger" onClick={toggle}>Cancel</Button>
+                <Button className="redButton" onClick={toggle}>Cancel</Button>
             </ListGroup>
         </>
     )

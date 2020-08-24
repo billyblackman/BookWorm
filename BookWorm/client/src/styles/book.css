@@ -16,13 +16,9 @@
     background-color: cornsilk;
 }
 
-.wishlistBook {
-    width: 23em;
-    height: 18em;
-    padding: 3px;
-    margin: 18px;
-    box-shadow: 1px 0px 10px -5px black;
-    background-color: cornsilk;
+.book {
+    background-image: url(https://www.google.com/intl/en/googlebooks/images/gbs_preview_sticker1.png);
+    background-repeat: no-repeat;
 }
 
 .bookDiv {
@@ -112,8 +108,4 @@
 
 .media > * {
     padding: 5px;
-}
-
-.redButton {
-    color: rgb(219, 127, 145);
 }

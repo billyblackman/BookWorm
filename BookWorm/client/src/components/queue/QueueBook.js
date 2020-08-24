@@ -3,6 +3,7 @@ import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Progress, Col
 import { BookContext } from "../../providers/BookProvider";
 import { CompletionCollapse } from "./CompletionCollapse";
 import "../../styles/book.css"
+import "../../styles/button.css"
 
 export const QueueBook = ({ googleBook, book, books, index }) => {
 
@@ -45,7 +46,7 @@ export const QueueBook = ({ googleBook, book, books, index }) => {
                 <Collapse isOpen={collapseState}>
                     <CompletionCollapse toggle={toggleCollapse} book={book} googleBook={googleBook}/>
                 </Collapse>
-                <Button color="danger" onClick={deleteBookFromQueue}>Remove from Queue</Button>
+                <Button className="redButton" onClick={deleteBookFromQueue}>Remove from Queue</Button>
             </Card>
         </>
     ) : (

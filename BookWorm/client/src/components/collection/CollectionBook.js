@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Spinner, Popover, Media, Modal } from "reactstrap";
 import { BookContext } from "../../providers/BookProvider";
 import "../../styles/book.css"
+import "../../styles/button.css"
 
 export const CollectionBook = ({ googleBook, book }) => {
 
@@ -17,7 +18,7 @@ export const CollectionBook = ({ googleBook, book }) => {
 
     return googleBook.hasOwnProperty("volumeInfo") ? (
         <>
-            <Card className="googleBook">
+            <Card className="googleBook book">
                 <CardBody>
                     <div className="media">
                         <img src={googleBook.volumeInfo.imageLinks.thumbnail} alt="Google book image" />
@@ -34,7 +35,7 @@ export const CollectionBook = ({ googleBook, book }) => {
                             <Button onClick={addToQueue}>Add to Queue</Button>
                         )
                 }
-                <Button color="danger" onClick={deleteBookFromCollection}>Delete</Button>
+                <Button className="redButton" onClick={deleteBookFromCollection}>Delete</Button>
             </Card>
         </>
     ) : (
