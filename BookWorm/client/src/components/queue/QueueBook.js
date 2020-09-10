@@ -1,19 +1,29 @@
 import React, { useContext, useState } from "react";
-import { Button, Card, CardImg, CardTitle, CardSubtitle, CardBody, Progress, Collapse, Badge } from "reactstrap";
+import { Button, Card, CardTitle, CardBody, Progress, Collapse, Badge } from "reactstrap";
 import { BookContext } from "../../providers/BookProvider";
 import { CompletionCollapse } from "./CompletionCollapse";
 import "../../styles/book.css"
 import "../../styles/button.css"
 
-export const QueueBook = ({ googleBook, book, books, index }) => {
+export const QueueBook = ({ googleBook, book, index }) => {
 
-    const { removeBookFromQueue } = useContext(BookContext);
+    const { removeBookFromQueue, addBookFromWishlistToCollection } = useContext(BookContext);
 
     const [collapseState, setCollapseState] = useState(false);
     const toggleCollapse = () => setCollapseState(!collapseState);
 
     const deleteBookFromQueue = () => {
         removeBookFromQueue(googleBook.id);
+    }
+
+    const startBook = (book, googleBookId) => {
+        if (book.purchased === false) {
+            addBookFromWishlistToCollection(googleBookId)
+            toggleCollapse()
+        } else {
+            toggleCollapse()
+        }
+        debugger
     }
 
     const conditionalProgress = () => {
@@ -27,7 +37,7 @@ export const QueueBook = ({ googleBook, book, books, index }) => {
                 )
             } else {
                 return (
-                    <Button className="blueHighlight" onClick={toggleCollapse}>Start Book</Button>
+                    <Button className="blueHighlight" onClick={() => startBook(book, googleBook.id)}>Start Book</Button>
                 )
             }
         } else {

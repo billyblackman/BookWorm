@@ -23,8 +23,6 @@ export default function Stats() {
     const completePercentage = (totalQueueComplete / totalPercentage * 100).toFixed(2);
     const completeQueuePercentage = (totalQueueComplete / totalQueuePercentage * 100).toFixed(2);
 
-    
-
     return booksLoaded ? (
         <>
             <ListGroup>
