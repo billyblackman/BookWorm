@@ -16,16 +16,6 @@ export const QueueBook = ({ googleBook, book, index }) => {
         removeBookFromQueue(googleBook.id);
     }
 
-    const startBook = (book, googleBookId) => {
-        if (book.purchased === false) {
-            addBookFromWishlistToCollection(googleBookId)
-            toggleCollapse()
-        } else {
-            toggleCollapse()
-        }
-        debugger
-    }
-
     const conditionalProgress = () => {
         if (book !== undefined) {
             if (book.completionPercentage > 0) {
@@ -37,7 +27,7 @@ export const QueueBook = ({ googleBook, book, index }) => {
                 )
             } else {
                 return (
-                    <Button className="blueHighlight" onClick={() => startBook(book, googleBook.id)}>Start Book</Button>
+                    <Button className="blueHighlight" onClick={toggleCollapse}>Start Book</Button>
                 )
             }
         } else {

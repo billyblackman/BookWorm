@@ -16,7 +16,7 @@ export const CompletionCollapse = ({ googleBook, book, toggle }) => {
     const handleControlledInputChange = (event) => {
         const newBook = Object.assign({}, updatedBook);
         newBook.completionPercentage = Math.floor((parseInt(event.target.value) / googleBook.volumeInfo.pageCount) * 100);
-
+        newBook.purchased = true;
         if (book.startDate = "0001-01-01T00:00:00") {
             newBook.startDate = new Date().toLocaleString();
         }
