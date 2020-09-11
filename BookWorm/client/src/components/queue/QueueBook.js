@@ -7,7 +7,7 @@ import "../../styles/button.css"
 
 export const QueueBook = ({ googleBook, book, index }) => {
 
-    const { removeBookFromQueue, addBookFromWishlistToCollection } = useContext(BookContext);
+    const { removeBookFromQueue } = useContext(BookContext);
 
     const [collapseState, setCollapseState] = useState(false);
     const toggleCollapse = () => setCollapseState(!collapseState);
@@ -19,10 +19,13 @@ export const QueueBook = ({ googleBook, book, index }) => {
     const conditionalProgress = () => {
         if (book !== undefined) {
             if (book.completionPercentage > 0) {
-                return (
+                return book.completionPercentage < 100 ? (
                     <>
                         <Progress animated onClick={toggleCollapse} className="progressBar" value={book.completionPercentage}>{book.completionPercentage}%</Progress>
-                        
+                    </>
+                ) : (
+                    <>
+                        <Button className="green" color="success" disabled>Complete &#10004;</Button>
                     </>
                 )
             } else {
