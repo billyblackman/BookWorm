@@ -30,6 +30,10 @@ export default function Queue() {
         }
     }, [books])
 
+    const conditionalRender = () => {
+
+    }
+
     return googleBooks.length > 0 && booksLoaded ? (
         <>
         {
@@ -43,8 +47,10 @@ export default function Queue() {
                 {googleBooks.map((googleBook) => {
                     const book = books.find(b => b.googleId === googleBook.id) || {}
                     const index = googleBooks.indexOf(googleBook) + 1
-                    return (
+                    return (book.completionPercentage === 100) === completedBooks ? (
                         <QueueBook key={book.id} books={books} index={index} book={book} googleBook={googleBook} />
+                    ) : (
+                        <></>
                     )
                 })}
             </div>
