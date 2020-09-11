@@ -3,15 +3,15 @@ import { GoogleBookContext } from "../../providers/GoogleBookProvider";
 import "../../styles/book.css"
 import { BookContext } from "../../providers/BookProvider";
 import { QueueBook } from "./QueueBook";
-import { Spinner } from "reactstrap";
+import { Button, Spinner } from "reactstrap";
 
 export default function Queue() {
 
     const { books, getBooks } = useContext(BookContext);
     const { getGoogleBooksByIds, googleBooks } = useContext(GoogleBookContext);
     const [booksLoaded, setBooksLoaded] = useState(false);
-
-
+    const [completedBooks, setCompletedBooks] = useState(false);
+    const changeDisplayState = () => setCompletedBooks(!completedBooks);
 
     const idArrayFunction = () => {
         const matchingBooks = books.filter(book => book.queuePosition > 0).sort((a, b) => (a.queuePosition > b.queuePosition) ? 1 : -1);
@@ -19,8 +19,7 @@ export default function Queue() {
     }
 
     useEffect(() => {
-        getBooks()
-            
+        getBooks()  
     }, [])
 
     useEffect(() => {
@@ -33,6 +32,13 @@ export default function Queue() {
 
     return googleBooks.length > 0 && booksLoaded ? (
         <>
+        {
+            completedBooks ? (
+                <Button onClick={changeDisplayState}>Incomplete books</Button>
+                ) : (
+                <Button onClick={changeDisplayState}>Completed books</Button>
+            )
+        }
             <div className="bookDiv">
                 {googleBooks.map((googleBook) => {
                     const book = books.find(b => b.googleId === googleBook.id) || {}

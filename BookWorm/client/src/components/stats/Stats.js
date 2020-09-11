@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BookContext } from "../../providers/BookProvider";
-import { ListGroup, ListGroupItemHeading, ListGroupItem, Spinner, Progress } from "reactstrap";
+import { ListGroup, ListGroupItem, Spinner, Progress } from "reactstrap";
 
 export default function Stats() {
 
@@ -15,6 +15,7 @@ export default function Stats() {
     const collectionArray = books.filter(b => b.purchased === true);
     const wishlistArray = books.filter(b => b.purchased === false);
     const queueArray = books.filter(b => b.queuePosition > 0);
+    const completedArray = books.filter(b => b.queuePosition > 0 && b.completionPercentage === 100);
 
     const queueComplete = books.map(b => b.completionPercentage)
     const totalQueueComplete = queueComplete.reduce((a, b) => a + b, 0)
@@ -30,6 +31,7 @@ export default function Stats() {
                 <ListGroupItem>Collection: {collectionArray.length}</ListGroupItem>
                 <ListGroupItem>Wishlist: {wishlistArray.length}</ListGroupItem>
                 <ListGroupItem>Queued: {queueArray.length}</ListGroupItem>
+                <ListGroupItem>Completed: {completedArray.length}</ListGroupItem>
                 <ListGroupItem>
                     Queue Completion: {completeQueuePercentage}%
                     <Progress animated value={completeQueuePercentage}></Progress>
